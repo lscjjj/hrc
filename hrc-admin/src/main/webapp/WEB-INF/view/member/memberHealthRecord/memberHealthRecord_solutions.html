@@ -1,0 +1,124 @@
+@layout("/common/_container.html"){
+<style>
+    body{
+        background:white !important;
+    }
+    .col-sm-3{
+        padding-right:0px !important;
+    }
+    .col-sm-9{
+        padding-left:0px !important;
+    }
+    .list-group-item {
+        border-radius: 0px !important;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div>
+            <div class="col-sm-3">
+                <div class="list-group">
+                    @for(c in item){
+                    <a href="#" class="list-group-item slist" data-id="${c.name}"">
+                        <span class="glyphicon glyphicon-file"></span> ${c.name}
+                    </a>
+                    @}
+                </div>
+            </div>
+            <div class="col-sm-9 sdetail">
+                    @for(c in item){
+                        <div class="list-group sgdetail" data-id="${c.name}" style="display:none;">
+                            @for(p in c.rps){
+                                <div class="list-group-item sdetail-item" data-id="${p.solution}"  data-item="${p.id}">
+                                    <h4 class="list-group-item-heading">${p.name}</h4>
+                                    <p class="list-group-item-text">${p.solution}</p>
+                                </div>
+                            @}
+                        </div>
+                    @}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".slist").click(function(){
+        var dt = $(this).attr('data-id');
+        $('.sdetail').children('.list-group').hide();
+        $('.sdetail').children('[data-id="'+dt+'"]').show();
+        hjh('[data-id="'+dt+'"]');
+    });
+    $(".sdetail-item").click(function(){
+        // if($(this).hasClass('active')){
+        //     $(this).removeClass('active');
+        // }else{
+        //     $(this).addClass('active');
+        // }
+        var slt='';
+        var project = new Array();
+        $('.sgdetail').children('.active').each(function(){
+            var dt = $(this).attr('data-id');
+            project.push($(this).attr('data-item'));
+            var pname = $(this).children('.list-group-item-heading').text();
+            var psolution = $(this).children('.list-group-item-text').text();
+            var dtns = pname+" : "+psolution;
+            slt =slt + dtns+'&#13;&#10;';
+        });
+        window.parent.document.getElementById('evaluation').innerHTML=slt;
+        window.parent.document.getElementById('project').value=project.join(',');
+    });
+    function clickinput(that){
+        var value = $(that).attr("name");
+        var remarks = $(that).parent().parent().next()[0].textContent;
+        var solut = value +" "+ remarks;
+        var cs = window.parent.document.getElementById('evaluation');
+        var cx = window.parent.document.getElementById('project');
+        var cout_c = $(cs).val();
+        var pat1 = new RegExp(value,"g");
+        var ca = pat1.test(cout_c);
+        if(ca){
+            var cc = cout_c.replace(new RegExp(solut,"g"), "");
+            $(cs).val(cc);
+        }else{
+            if(cout_c==""){
+                $(cs).val(cout_c+ ""+solut);
+            }else{
+                $(cs).val(cout_c+ "，"+solut);
+            }
+        }
+
+    }
+    function hjh(items) {
+        // var arr_cont = $(".list-group-item-heading");
+        // if (arr_cont.length > 0) {
+        //     for (let i = 0; arr_cont.length <= i; i++) {
+        //         console.log(arr_cont[i].innerHTML)
+        //     }
+        // }
+        let conutobj = $('.sdetail').children(items)[0].children;
+        if (conutobj.length > 0 && $(conutobj[0]).has("input").length == 0) {
+            for (var x =0;conutobj.length > x; x++) {
+                var sumhtml = "";
+                var text = $(conutobj[x]).children("h4")[0].innerHTML;
+                var resolu = text.split("、");
+                if(resolu.length>0){
+                    var re_aorb = resolu[0].substr(0,1)
+                    for(var i = 0;resolu.length> i;i++){
+                        var aorb = resolu[i].substr(0,1);
+                        if(aorb == "A" || aorb == "B" || aorb == "C" || aorb == "D"){
+
+                        }else{
+                            resolu[i] = re_aorb+resolu[i];
+                        }
+                        var re_html = "<p class='onlyclass'> <input type=\"checkbox\" onclick='clickinput(this)' name='"+resolu[i]+"'/><span>"+resolu[i]+"</span></p>";
+                        sumhtml+= re_html;
+                    }
+                }
+                $(conutobj[x]).children("h4")[0].innerHTML = ""
+                $(conutobj[x]).children("h4")[0].innerHTML = sumhtml;
+            }
+        }
+    }
+</script>
+@}

@@ -1,0 +1,15 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<link rel="stylesheet" href="${ctxPath}/static/css/plugins/multiselect/bootstrap-multiselect.css">
+<script src="${ctxPath}/static/js/plugins/multiselect/bootstrap-multiselect.js"></script>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <p style="    display: inline;position: absolute;line-height: 59px;margin-right: 5px;color: #bf0000;">提示:请选择要添加康复报告的会员！</p>
+        <#table id="RehabilitationProgramaddTable"/>
+
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/station/rehabilitationProgram/rehabilitationProgram_info.js"></script>
+<script src="${ctxPath}/static/modular/member/memberHealthSurvey/memberHealthSurvey.js"></script>
+@}

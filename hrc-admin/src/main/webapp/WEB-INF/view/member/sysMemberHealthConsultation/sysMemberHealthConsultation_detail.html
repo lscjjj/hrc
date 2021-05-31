@@ -1,0 +1,100 @@
+@layout("/common/_container.html"){
+<style type="text/css">
+    .col-sm-9{
+        padding-top: 7px;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="id" value="${item.id}" />
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">回复状态</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.stateName}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">咨询成员</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.appellationName}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.familyName}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.memberUserPhone}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">咨询门店</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.departmentName}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">操作员</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.createdBy}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">康复建议</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.consultationSuggest}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">建议康复产品</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.suggestProduce}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row btn-group-m-t">
+
+        </div>
+    </div>
+</div>
+</div>
+<script src="${ctxPath}/static/modular/member/sysMemberHealthConsultation/sysMemberHealthRecord.js"></script>
+@}

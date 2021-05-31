@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>会员健康状况调查管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                        </div>
+                        <div class="hidden-xs" id="MemberHealthSurveyTableToolbar" role="group">
+                            @if(shiro.hasPermission("/memberHealthSurvey/add")){
+                            <#button name="添加" icon="fa-plus" clickFun="MemberHealthSurvey.openAddMemberHealthSurvey()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/memberHealthSurvey/detail")){
+                            <#button name="详情" icon="fa-plus" clickFun="MemberHealthSurvey.openMemberHealthSurveyDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/memberHealthSurvey/update")){
+                            <#button name="编辑" icon="fa-plus" clickFun="MemberHealthSurvey.openMemberHealthSurveyUpdate()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/memberHealthSurvey/delete")){
+                            <#button name="删除" icon="fa-plus" clickFun="MemberHealthSurvey.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="MemberHealthSurveyTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberHealthSurvey/memberHealthSurvey.js"></script>
+<script src="${ctxPath}/static/modular/member/memberHealthSurvey/memberHealthSurvey_info.js"></script>
+@}

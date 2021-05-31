@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" value="${item.id}" underline="true"/>
+                            <#input id="memberUser" name="账号id" value="${item.memberUser}" underline="true"/>
+                            <#input id="appellation" name="称呼" value="${item.appellation}" underline="true"/>
+                            <#input id="name" name="姓名" value="${item.name}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="gender" name="性别 （字典）" value="${item.gender}" underline="true"/>
+                            <#input id="birthday" name="生日" value="${item.birthday}" underline="true"/>
+                            <#input id="medicalHistory" name="既往病史" value="${item.medicalHistory}" underline="true"/>
+                            <#input id="createtime" name="创建时间" value="${item.createtime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="MemberFamilyInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MemberFamilyInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberFamily/memberFamily_info.js"></script>
+@}

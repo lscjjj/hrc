@@ -1,0 +1,48 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+            <input type="hidden" id="department" value="${departmentId}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">使用地点</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="departmentValue" value="${departmentName}">
+
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="produce" name="使用产品" underline="true"/>
+                            <#input id="feel" name="使用感受" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="MemberRehabilitationRecordInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MemberRehabilitationRecordInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberRehabilitationRecord/memberRehabilitationRecord_info.js"></script>
+<script src="${ctxPath}/static/modular/member/memberRehabilitationRecord/commen.js"></script>
+@}

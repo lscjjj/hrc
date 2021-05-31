@@ -1,0 +1,233 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/layui/css/layui.css" rel="stylesheet"/>
+<link href="${ctxPath}/static/css/screen.css" rel="stylesheet"/>
+<style>
+    body{
+        background: white !important;
+    }
+</style>
+<div id="questionnaires">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered" id="table-one">
+                    <thead>
+                    <tr>
+                        <th>脸鼻</th>
+                        <th style="width: 100px;">脸色春天</th>
+                        <th>脸色夏天</th>
+                        <th>脸色秋天</th>
+                        <th>脸色冬天</th>
+                        <th style="width: 100px;">脸</th>
+                        <th style="width: 100px;">印堂</th>
+                        <th style="width: 100px;">山根</th>
+                        <th style="width: 101px;">鼻背</th>
+                        <th style="width: 89px;">鼻头</th>
+                        <th>鼻翼鼻唇沟</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr id="one0"></tr>
+
+                    <tr>
+                        <td>眼睛</td>
+                        <td>瞳孔照白光</td>
+                        <td>瞳孔边缘</td>
+                        <td>眼睛虹膜</td>
+                        <td>眼睛白膜</td>
+                        <td>内眼角炎症</td>
+                        <td>外眼角炎症</td>
+                        <td>眼睛深口</td>
+                        <td>眼袋</td>
+                        <td>上眼皮</td>
+                        <td></td>
+                    </tr>
+
+                    <tr id="one1"></tr>
+
+                    <tr>
+                        <td>身体</td>
+                        <td>身体</td>
+                        <td>四肢</td>
+                        <td>口</td>
+                        <td>口渴</td>
+                        <td>脸部斑</td>
+                        <td>皮肤紫瘢</td>
+                        <td>其他</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one2"></tr>
+                    <tr>
+                        <td>手脚</td>
+                        <td>手脚温度</td>
+                        <td>指尖</td>
+                        <td>手脚</td>
+                        <td>手</td>
+                        <td>脚</td>
+                        <td>其他：脚</td>
+                        <td>其他：脚跟</td>
+                        <td>其他：脚气</td>
+                        <td>其他：手</td>
+                        <td>额头</td>
+                    </tr>
+                    <tr id="one3"></tr>
+                    <tr>
+                        <td>甲印</td>
+                        <td>太阳</td>
+                        <td>纹线</td>
+                        <td>中间断裂</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one4"></tr>
+                    <tr>
+                        <td>胃口</td>
+                        <td>胃口</td>
+                        <td>味觉</td>
+                        <td>吃饭到点</td>
+                        <td>饭量</td>
+                        <td>腹部</td>
+                        <td>腰围</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one5"></tr>
+                    <tr>
+                        <td>牙</td>
+                        <td>牙龈</td>
+                        <td>牙龈颜色</td>
+                        <td>牙齿颜色</td>
+                        <td>牙齿排列</td>
+                        <td>牙齿</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one6"></tr>
+                    <tr>
+                        <td>舌</td>
+                        <td>舌体</td>
+                        <td>舌体颜色</td>
+                        <td>舌胎</td>
+                        <td>舌胎颜色</td>
+                        <td>舌胎裂纹</td>
+                        <td>其他：舌体</td>
+                        <td>舌疮</td>
+                        <td>嘴唇</td>
+                        <td>嘴唇斑点</td>
+                        <td>炎症</td>
+                    </tr>
+                    <tr id="one7"></tr>
+                    <tr>
+                        <td>睡眠</td>
+                        <td>睡眠</td>
+                        <td>其他：睡眠</td>
+                        <td>其他：睡眠</td>
+                        <td>其他：睡眠</td>
+                        <td>睡眠醒</td>
+                        <td>睡眠/天</td>
+                        <td>做梦</td>
+                        <td>梦游</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr id="one8"></tr>
+                    <tr>
+                        <td>出汗</td>
+                        <td>出汗</td>
+                        <td>吃饭出汗</td>
+                        <td>运动出汗</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one9"></tr>
+                    <tr>
+                        <td>小便</td>
+                        <td>小便便意</td>
+                        <td>小便下利</td>
+                        <td>小便颜色</td>
+                        <td>小便味道</td>
+                        <td>小便泡沫</td>
+                        <td>小便白天</td>
+                        <td>夜里小便</td>
+                        <td>夜里小便时间</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one10"></tr>
+                    <tr>
+                        <td>大便</td>
+                        <td>排便每天</td>
+                        <td>排便间隔</td>
+                        <td>排便每天</td>
+                        <td>排便时间</td>
+                        <td>排便</td>
+                        <td>其他：排便</td>
+                        <td>排便颜色</td>
+                        <td>其他：血</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="one11"></tr>
+
+                    <tr>
+                        <td rowspan="5">身体症状在<br>符合处画“ √ ”</td>
+                        <td colspan="14" id="fast12"><span>1.脊椎压疼点：</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="14" id="fast13"><span>2.足三里压疼点：</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="14" id="fast14"><span>3.三阴交压疼点：</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="14" id="fast15"><span>4.跌阳脉：</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="14" id="fast16"><span>5.两性：</span></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="cancel" icon="fa-eraser" clickFun="MemberHealthSurveyInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/resource/tcmHealthSurveyOption/tcmHealthSurveyOption_info.js"></script>
+@}

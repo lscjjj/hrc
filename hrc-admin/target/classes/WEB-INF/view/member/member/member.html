@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>会员管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+
+                        <div class="row">
+                            <!--           添加的搜索栏                 -->
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="condition" placeholder="输入姓名\手机号\身份证..">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">姓名
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                    </div>
+                                    <!-- /btn-group -->
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Member.search()"/>
+                            </div>
+                            <div id="earchnumber" style="    position: relative;float: right;bottom: -21px;right: 195px;color: red;">优先搜索建档人员</div>
+                            <!--                            -->
+                            <!--                            <div class="col-sm-3">-->
+                            <!--                                <#NameCon id="condition" name="名称" />-->
+                            <!--                            </div>-->
+                            <!--                            <div class="col-sm-3">-->
+                            <!--                                <#button name="搜索" icon="fa-search" clickFun="Member.search()"/>-->
+                            <!--                            </div>-->
+                        </div>
+                        <div class="hidden-xs" id="MemberTableToolbar" role="group">
+                            @if(shiro.hasPermission("/member/add")){
+                            <#button name="添加" icon="fa-plus" clickFun="Member.openAddMember()"/>
+                            @}
+                        </div>
+                        <#table id="MemberTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/member/member.js"></script>
+@}

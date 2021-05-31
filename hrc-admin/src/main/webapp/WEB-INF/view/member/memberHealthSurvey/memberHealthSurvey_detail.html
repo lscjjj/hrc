@@ -1,0 +1,80 @@
+@layout("/common/_container.html"){
+<style type="text/css">
+    .col-sm-9{
+        padding-top: 7px;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="id" value="${item.id}" />
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">会员姓名</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.memberName}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">年龄</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.age}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.MemberSex}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">住址</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.MemberAddress}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">手机号码</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.memberPhone}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">健康状况</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                ${item.surveyInfo}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row btn-group-m-t">
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberHealthSurvey/memberHealthSurvey_info.js"></script>
+@}

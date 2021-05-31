@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="MemberUser.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="MemberUserTableToolbar" role="group">
+                            @if(shiro.hasPermission("/memberUser/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="MemberUser.openMemberUserDetail()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="MemberUserTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberUser/memberUser.js"></script>
+@}

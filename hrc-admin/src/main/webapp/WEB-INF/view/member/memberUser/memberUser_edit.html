@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="name" name="会员姓名" value="${item.name}" underline="true"/>
+                            <#input id="wechat" name="微信" value="${item.wechat}" underline="true"/>
+                            <#input id="birthday" name="出生日期" underline="true" type="date"
+                                value="${item.birthday}"
+                            clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="email" name="电子邮件" value="${item.email}" underline="true"/>
+                            <#input id="phone" name="手机号码" value="${item.phone}" underline="true"/>
+                            <#input id="address" name="地址" value="${item.address}" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12">
+<!--                    <#button btnCss="info" name="保存" id="ensure"  icon="fa-check" clickFun="MemberUserInfoDlg.editSubmit()"/>-->
+                    <button type="button" class="btn btn-primary center-block" onclick="MemberUserInfoDlg.editSubmit()">保存</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberUser/memberUser_info.js"></script>
+@}

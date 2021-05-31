@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="name" name="名称" value="${item.name}" underline="true"/>
+                            <#input id="category" name="类别" value="${item.category}" underline="true"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="tips" name="提示" value="${item.tips}" underline="true"/>
+                            <#input id="module" name="类别细分" value="${item.module}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="TcmHealthSurveyOptionInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="TcmHealthSurveyOptionInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/resource/tcmHealthSurveyOption/tcmHealthSurveyOption_info.js"></script>
+@}

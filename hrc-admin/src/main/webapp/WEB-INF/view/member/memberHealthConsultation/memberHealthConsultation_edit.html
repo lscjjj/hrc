@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" value="${item.id}" underline="true"/>
+                            <#input id="memberUser" name="会员id" value="${item.memberUser}" underline="true"/>
+                            <#input id="family" name="咨询成员" value="${item.family}" underline="true"/>
+                            <#input id="department" name="咨询门店" value="${item.department}" underline="true"/>
+                            <#input id="symptoms" name="症状表现" value="${item.symptoms}" underline="true"/>
+                            <#input id="consultationInfo" name="咨询内容" value="${item.consultationInfo}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="createdBy" name="操作员" value="${item.createdBy}" underline="true"/>
+                            <#input id="consultationSuggest" name="康复建议" value="${item.consultationSuggest}" underline="true"/>
+                            <#input id="suggestProduce" name="建议康复产品" value="${item.suggestProduce}" underline="true"/>
+                            <#input id="state" name="状态" value="${item.state}" underline="true"/>
+                            <#input id="createTime" name="创建时间" value="${item.createTime}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="MemberHealthConsultationInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MemberHealthConsultationInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberHealthConsultation/memberHealthConsultation_info.js"></script>
+@}

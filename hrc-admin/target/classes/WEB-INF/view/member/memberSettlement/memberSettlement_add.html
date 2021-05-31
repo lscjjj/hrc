@@ -1,0 +1,129 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<style type="text/css">
+    .treatment-pane{
+        display:none;
+    }
+    .mcpane{
+        display: block !important;
+    }
+    .hr-line-dashed{
+        display: none!important;
+    }
+    #otherBusiness{
+        width: 108%;
+    }
+    .submitresult{
+        text-align: end;
+        padding-right: 61px;
+    }
+    .beizhu{
+        padding-left:50px;
+        padding-bottom: 20px;
+        color: red;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+            <input type="hidden" id="member" value="">
+            <input type="hidden" id="department" value="${departmentId}">
+            <input type="hidden" id="createdBy" value="${createdBy}">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group beizhu">
+                        <span>消费类别</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">会员姓名</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="memberValue">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                </div>
+                                <!-- /btn-group -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group treatment-pane" style="display: block">
+                        <label class="col-sm-3 control-label">康复项目</label>
+                        <div class="col-sm-9">
+                            <select id="treatment" name="treatment" class="form-control">
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">康复产品</label>
+                        <#button btnCss="info btn-add-consumable" name="添加产品" id="addConsumable" icon="fa-plus" clickFun="MemberSettlementInfoDlg.addConsumable()" />
+                        <div id="consumablePane">
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group mcpane">
+                        <label class="col-sm-3 control-label">会员卡</label>
+                        <div class="col-sm-9">
+                            <select id="membershipCard" class="form-control">
+                                <option value="">请选择支付方式后在选择会员卡</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-12"><#input id="otherBusiness" name="其他业务" underline="true" placeholder="请输入其他业务"/></div>
+                    </div>
+
+                    <#select id="paymentMethod" name="支付方式" underline="true">
+                    <option value="">请选择支付方式</option>
+                    @for(p in paymentMethodDict){
+                    <option value="${p.num}">${p.name}</option>
+                    @}
+                    </#select>
+
+           </div>
+            <div class="col-sm-6">
+                <div class="form-group beizhu">
+                    <span>消费数额(元)</span>
+                </div>
+                <#input id="cardid" name="身份证号"/>
+                <#input id="kfprice" name="康复项目" placeholder="请输入金额"/>
+                <#input id="kprice" name="康复产品" placeholder="请输入金额"/>
+                <#input id="transferCardConsumption" name="转卡消费" underline="true" placeholder="请输入转卡卡号"/>
+                <#input id="transferAmount" name="转卡消费" underline="true" placeholder="请输入转卡消费金额"/></div>
+            </div>
+
+            <div class="submitresult">
+
+                总计金额:<input id="paymentAmount" name="总计金额" value="" style="width: 60px" readonly/>￥自动核算（消费总额=项目内容金额+消费产品金额)
+                <br>
+                <br>
+                制单人：<select id="createdBy1" class="" style="width: 60px">
+                        @for(user in users){
+                        <option value="${user.id}">${user.name}</option>
+                        @}
+                    </select>
+
+                <br>
+                <br>
+                <#button btnCss="info" name="确定结算" id="ensure" icon="fa-check" clickFun="MemberSettlementInfoDlg.addSubmit()"/>
+            </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberSettlement/memberSettlement_info.js"></script>
+@}

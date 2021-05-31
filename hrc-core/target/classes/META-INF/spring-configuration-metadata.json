@@ -1,0 +1,155 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "name": "hrc.muti-datasource",
+      "type": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "name": "spring.datasource",
+      "type": "com.cebrains.hrc.core.datasource.DruidProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "defaultValue": "dataSourceHRC",
+      "name": "hrc.muti-datasource.default-data-source-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "defaultValue": "com.mysql.jdbc.Driver",
+      "name": "hrc.muti-datasource.driver-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "defaultValue": "go_range_1_2_3_4_5_6",
+      "name": "hrc.muti-datasource.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "defaultValue": "jdbc:mysql:\/\/mysql_serv:3306\/biz?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
+      "name": "hrc.muti-datasource.url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "defaultValue": "hrcu",
+      "name": "hrc.muti-datasource.username",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
+      "defaultValue": "SELECT 'x'",
+      "name": "hrc.muti-datasource.validation-query",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": "com.mysql.jdbc.Driver",
+      "name": "spring.datasource.driver-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": "stat",
+      "name": "spring.datasource.filters",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 2,
+      "name": "spring.datasource.initial-size",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 20,
+      "name": "spring.datasource.max-active",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 20,
+      "name": "spring.datasource.max-pool-prepared-statement-per-connection-size",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 60000,
+      "name": "spring.datasource.max-wait",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 300000,
+      "name": "spring.datasource.min-evictable-idle-time-millis",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 1,
+      "name": "spring.datasource.min-idle",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": "go_range_1_2_3_4_5_6",
+      "name": "spring.datasource.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": true,
+      "name": "spring.datasource.pool-prepared-statements",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": false,
+      "name": "spring.datasource.test-on-borrow",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": false,
+      "name": "spring.datasource.test-on-return",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": true,
+      "name": "spring.datasource.test-while-idle",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": 60000,
+      "name": "spring.datasource.time-between-eviction-runs-millis",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": "jdbc:mysql:\/\/mysql_serv:3306\/hrc?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
+      "name": "spring.datasource.url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": "hrcu",
+      "name": "spring.datasource.username",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
+      "defaultValue": "SELECT 'x'",
+      "name": "spring.datasource.validation-query",
+      "type": "java.lang.String"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                        </div>
+                        <div class="hidden-xs" id="MemberUserTableToolbar" role="group">
+                            @if(shiro.hasPermission("/sysMemberUser/detail")){
+                                <#button name="详情" icon="fa-plus" clickFun="MemberUser.openMemberUserDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/sysMemberUser/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="MemberUser.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="MemberUserTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/sysMemberUser/sysMemberUser.js"></script>
+@}

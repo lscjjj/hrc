@@ -1,0 +1,95 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/layui/css/layui.css" rel="stylesheet"/>
+<link href="${ctxPath}/static/css/screen.css" rel="stylesheet"/>
+
+<div id="questionnaire">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered" id="table-one">
+                    <thead>
+                    <tr>
+                        <th>体质分类123</th>
+                        <th>阴虚体质</th>
+                        <th>阳虚体质</th>
+                        <th>气虚体质</th>
+                        <th>痰湿体质</th>
+                        <th>淤血体质</th>
+                        <th>湿热质</th>
+                        <th>气郁质</th>
+                        <th>特禀质</th>
+                        <th>平和体质</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td rowspan="2">在符合处画“ √ ”</td>
+                    </tr>
+                    <tr>
+                        <td id="one0"></td>
+                        <td id="one1"></td>
+                        <td id="one2"></td>
+                        <td id="one3"></td>
+                        <td id="one4"></td>
+                        <td id="one5"></td>
+                        <td id="one6"></td>
+                        <td id="one7"></td>
+                        <td id="one8"></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">在符合处画“ √ ”</td>
+                    </tr>
+                    <tr>
+                        <td id="two0"></td>
+                        <td id="two1"></td>
+                        <td id="two2"></td>
+                        <td id="two3"></td>
+                        <td id="two4"></td>
+                        <td id="two5"></td>
+                        <td id="two6"></td>
+                        <td id="two7">
+                            <p>先天禀赋</p>
+                        </td>
+                        <td id="two8"></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5">身体症状在<br>符合处画“ √ ”</td>
+                        <td colspan="9" id="fast9"><span>1.心脑血管方面</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" id="fast10"><span>2.泌尿系统方面</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" id="fast11"><span>3.骨关节方面</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" id="fast12"><span>4.女性疾病</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" id="fast13"><span>5.其他症状</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="cancel" icon="fa-eraser" clickFun="MemberHealthSurveyInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/memberHealthSurvey/memberHealthSurvey_info.js"></script>
+@}

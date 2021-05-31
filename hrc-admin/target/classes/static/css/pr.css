@@ -1,0 +1,78 @@
+@import "bootstrap.min.css";
+html,
+body {
+    width: 100%;
+    height: 80%;
+}
+
+#table-one {
+    margin: 12px;
+}
+
+p {
+    margin-bottom: 0;
+    width: 90%;
+    font-size: 12px;
+}
+
+.table td {
+    max-width: 20px !important;
+    vertical-align: middle !important;
+    padding: .3rem 0 !important;
+}
+
+.table thead th {
+    text-align: center;
+}
+
+span {
+    margin: 0 .5rem;
+    float: left;
+    font-size: 12px;
+}
+
+p>input {
+    margin-right: .5rem;
+    float: right;
+}
+
+span>input {
+    float: right !important;
+    margin-top: 3px !important;
+    margin-left: .5rem !important;
+}
+
+#headerx>p {
+    float: left;
+    margin-left: 1rem;
+    border-bottom: 1px solid black;
+}
+
+#headerx {
+    overflow: hidden;
+}
+
+#pxsex {
+    border-bottom: none !important;
+}
+
+.sexg {
+    float: none !important;
+}
+
+.width_sex {
+    width: 13%;
+}
+
+.width_one {
+    width: 40%;
+}
+
+.width_two {
+    width: 12%;
+}
+h5{
+    display: flex !important;
+    justify-content: center !important;
+    font-weight: 500 !important;
+}

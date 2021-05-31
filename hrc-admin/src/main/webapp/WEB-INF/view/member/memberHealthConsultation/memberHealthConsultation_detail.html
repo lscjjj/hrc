@@ -1,0 +1,33 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div id="detailed_view"></div>
+
+        </div>
+    </div>
+</div>
+<script type="text/html" id="detailed_src">
+    <div id="detailed_index">
+        {{# if(data_con.state == 1){ }}
+        <p>回复状态 <span>未回复</span></p>
+        {{# }else{ }}
+        <p>回复状态 <span>{{ data_con.stateName }}</span></p>
+        {{# } }}
+        <p>咨询成员 <span>{{ data_con.appellationName }}</span></p>
+        <p>姓名 <span>{{ data_con.familyName }}</span></p>
+        <p>症状表现 <span>{{ data_con.symptoms }}</span></p>
+        <p>咨询门店 <span>{{ data_con.departmentName }}</span></p>
+        <p>咨询内容 <span>{{ data_con.consultationInfo }}</span></p>
+        {{# if(data_con.state == 2){ }}
+        <p>操作员 <span>{{ data_con.createdBy }}</span></p>
+        <p>康复建议 <span>{{ data_con.consultationSuggest }}</span></p>
+        <p>建议康复产品 <span>{{ data_con.suggestProduce }}</span></p>
+        {{# }; }}
+    </div>
+</script>
+
+<script src="${ctxPath}/static/modular/member/memberHealthConsultation/memberHealthConsultation.js"></script>
+<script src="${ctxPath}/static/modular/member/memberHealthConsultation/memberHealthConsultation_detail.js"></script>
+@}

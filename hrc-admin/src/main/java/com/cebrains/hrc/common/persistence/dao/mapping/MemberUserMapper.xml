@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cebrains.hrc.common.persistence.dao.MemberUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cebrains.hrc.common.persistence.model.MemberUser">
+        <id column="id" property="id" />
+        <result column="member_user" property="memberUser" />
+        <result column="name" property="name" />
+        <result column="gender" property="gender" />
+        <result column="wechat" property="wechat" />
+        <result column="birthday" property="birthday" />
+        <result column="email" property="email" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, member_user AS memberUser, name, gender, wechat, birthday, email, phone, address, create_time AS createTime
+    </sql>
+
+    <select id="list">
+		select * from member_user where member_user =#{id}
+	</select>
+
+</mapper>

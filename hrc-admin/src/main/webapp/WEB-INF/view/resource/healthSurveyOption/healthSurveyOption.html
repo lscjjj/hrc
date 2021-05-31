@@ -1,0 +1,108 @@
+@layout("/common/_container.html"){
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${ctxPath}/static/layui/css/layui.css">
+    <link rel="stylesheet" href="${ctxPath}/static/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="${ctxPath}/static/css/pr.css" media="print">
+    <link rel="stylesheet" href="${ctxPath}/static/css/screen.css" media="screen">
+    <title>Document</title>
+</head>
+<body>
+    <div class="layui-btn-group">
+        <!--         <button type="button" class="layui-btn" id="add_layui">增加 <i class="layui-icon">&#xe654;</i></button>
+        <button type="button" class="layui-btn" id="edit_layui">编辑 <i class="layui-icon">&#xe642;</i></button>
+        <button type="button" class="layui-btn" id="delete_layui">删除 <i class="layui-icon">&#xe640;</i></button> -->
+        <button type="button" class="layui-btn" onclick="jqprin_add()">打印</button>
+    </div>
+    <div id="questionnaire">
+        <h5 class="d-flex justify-content-center">会员健康状况调查表</h5>
+        <div id="headerx">
+            <p class="width_sex">姓名</p>
+            <p class="width_sex">年龄</p>
+            <p id="pxsex" class="width_sex">性别：男<input type="checkbox" class="sexg"> 女<input type="checkbox" class="sexg"></p>
+            <p class="width_one">地址</p>
+            <p class="width_two">联系电话</p>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered" id="table-one">
+                        <thead>
+                        <tr>
+                            <th>体质分类</th>
+                            <th>阴虚体质</th>
+                            <th>阳虚体质</th>
+                            <th>气虚体质</th>
+                            <th>痰湿体质</th>
+                            <th>淤血体质</th>
+                            <th>湿热质</th>
+                            <th>气郁质</th>
+                            <th>特禀质</th>
+                            <th>平和体质</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td rowspan="2">在符合处画“ √ ”</td>
+                        </tr>
+                        <tr>
+                            <td id="one0"></td>
+                            <td id="one1"></td>
+                            <td id="one2"></td>
+                            <td id="one3"></td>
+                            <td id="one4"></td>
+                            <td id="one5"></td>
+                            <td id="one6"></td>
+                            <td id="one7"></td>
+                            <td id="one8"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">在符合处画“ √ ”</td>
+                        </tr>
+                        <tr>
+                            <td id="two0"></td>
+                            <td id="two1"></td>
+                            <td id="two2"></td>
+                            <td id="two3"></td>
+                            <td id="two4"></td>
+                            <td id="two5"></td>
+                            <td id="two6"></td>
+                            <td id="two7">
+                                <p>先天禀赋</p>
+                            </td>
+                            <td id="two8"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5">身体症状在<br>符合处画“ √ ”</td>
+                            <td colspan="9" id="fast9"><span>1.心脑血管方面</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" id="fast10"><span>2.泌尿系统方面</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" id="fast11"><span>3.骨关节方面</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" id="fast12"><span>4.女性疾病</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" id="fast13"><span>5.其他症状</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="${ctxPath}/static/jquery.js"></script>
+        <script src="${ctxPath}/static/layui/layui.js"></script>
+        <script src="${ctxPath}/static/jquery-migrate-1.0.0.js"></script>
+        <script src="${ctxPath}/static/jqprint.js"></script>
+        <script src="${ctxPath}/static/modular/resource/healthSurveyOption/questionnaire_info.js"></script>
+
+</body>
+</html>
+@}

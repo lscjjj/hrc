@@ -1,0 +1,178 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<style>
+    .control-label{
+        text-align: left!important;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+            <input type="hidden" id="card" value="${card}">
+            <input type="hidden" id="department" value="${departmentId}">
+            <input type="hidden" id="created" value="${userId}">
+
+            <div class="row">
+                <div class="" style="text-align: right;margin-bottom: 20px;width: 71px;height: 26px;line-height: 26px;background-color: #21b9bb;border-color: #21b9bb;color: #FFFFFF;border-radius: 5%;cursor: pointer;position: relative;float: right;margin-right: 28px;" ><b style="margin-right: 21px;" onclick="MembershipChargeLogInfoDlg.closeindexs()">返回</b></div>
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="cardName" value="${memberName}">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-white dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                    </div>
+                                    <!-- /btn-group -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">身份证</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="Identitycard" name="Identitycard" value="${idCard}" type="text" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">电话</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="Telephone" name="Telephone" value="${mobile}" type="text" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">卡号</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="cardValue" name="cardValue" value="${number}" type="text" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">充值金额</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="amount" name="充值金额" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">赠送金额</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="givenAmount" name="givenAmount" type="text" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">充值卡金额</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="balance" name="balance" type="text" value="${balance}" readonly>
+                            </div>
+                            <!--                            <span id="chargeTip" style="color: mediumblue;padding-left: 30px;margin-top:40px"></span>-->
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">建档门店</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="departmentValue" value="${departmentName}"
+                                       @if(tool.isNotEmpty(departmentId)){
+                                       readonly disabled>
+                                @}else{
+                                >
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                </div>
+                                @}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">建档人员</label>
+                            <div class="col-sm-9">
+                                <select id="createdBy" class="form-control">
+                                    @for(user in users){
+                                    <option value="${user.id}">${user.name}</option>
+                                    @}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">建档时间</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="givenalotxianmu" name="givenalotxianmu" type="text" value=""
+                                       readonly>
+                            </div>
+                            <div class="col-sm-2">
+                                <#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+                                clickFun="MembershipChargeLogInfoDlg.addSubmit()"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                    <div class="form-group">-->
+                <!--                        <label class="col-sm-3 control-label">充值门店</label>-->
+                <!--                        <div class="col-sm-9">-->
+                <!--                                <input type="text" class="form-control" id="departmentName" value="${departmentName}" disabled readonly>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+                <!--                    <div class="form-group">-->
+                <!--                        <label class="col-sm-3 control-label">操作员</label>-->
+                <!--                        <div class="col-sm-9">-->
+                <!--                                <input type="text" class="form-control" id="userName" value="${userName}" disabled readonly>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+
+                <!--            <div class="row btn-group-m-t">-->
+                <!--                <div class="col-sm-10">-->
+
+                <!--                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MembershipChargeLogInfoDlg.close()"/>-->
+                <!--                </div>-->
+                <!--            </div>-->
+
+
+                <hr>
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <span style="position: absolute;top: 14px;">会员充值记录</span>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <#table id="MembershipChargeLogTablelgc"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/member/membershipChargeLog/membershipChargeLog_info.js"></script>
+@}

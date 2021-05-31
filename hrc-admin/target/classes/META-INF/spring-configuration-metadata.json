@@ -1,0 +1,103 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl",
+      "type": "com.cebrains.hrc.config.properties.BeetlProperties"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "name": "hrc",
+      "type": "com.cebrains.hrc.config.properties.HRCProperties"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCFlowableProperties",
+      "name": "hrc.flowable.datasource",
+      "type": "com.cebrains.hrc.config.properties.HRCFlowableProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl.delimiter-statement-end",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl.delimiter-statement-start",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl.properties",
+      "type": "java.util.Properties"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl.resource-auto-check",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl.resource-tagroot",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.BeetlProperties",
+      "name": "beetl.resource-tagsuffix",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "name": "hrc.file-upload-path",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCFlowableProperties",
+      "defaultValue": "go_range_1_2_3_4_5_6",
+      "name": "hrc.flowable.datasource.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCFlowableProperties",
+      "defaultValue": "jdbc:mysql:\/\/mysql_serv:3306\/hrc_flowable?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
+      "name": "hrc.flowable.datasource.url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCFlowableProperties",
+      "defaultValue": "hrcu",
+      "name": "hrc.flowable.datasource.username",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "defaultValue": false,
+      "name": "hrc.kaptcha-open",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "name": "hrc.session-invalidate-time",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "name": "hrc.session-validation-interval",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "defaultValue": false,
+      "name": "hrc.spring-session-open",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cebrains.hrc.config.properties.HRCProperties",
+      "defaultValue": false,
+      "name": "hrc.swagger-open",
+      "type": "java.lang.Boolean"
+    }
+  ]
+}

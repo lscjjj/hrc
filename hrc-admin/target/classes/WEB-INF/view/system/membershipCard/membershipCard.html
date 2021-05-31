@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>会员卡及充值</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <!--添加的搜索栏-->
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="condition" placeholder="姓名或身份证号">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">姓名
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                            </div>
+                            <!-- /btn-group -->
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <#button name="搜索" icon="fa-search" clickFun="MembershipCard.search()"/>
+                    </div>
+                    <!--添加的搜索栏-->
+
+                    <div class="col-sm-12">
+                        <!--                        <div class="row">-->
+                        <!--                            <div class="col-sm-3">-->
+                        <!--                                <#NameCon id="condition" name="名称" />-->
+                        <!--                                <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="col-sm-3">-->
+                        <!--                                <#button name="搜索" icon="fa-search" clickFun="MembershipCard.search()"/>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div class="hidden-xs" id="MembershipCardTableToolbar" role="group">
+                            <#button name="会员卡充值" icon="fa-plus" clickFun="MembershipCard.openAddMembershipCards()" space="true"/>
+                        </div>
+                        <#table id="MembershipCardTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/membershipCard/membershipCard.js"></script>
+<script src="${ctxPath}/static/modular/member/membershipChargeLog/membershipChargeLog_info.js"></script>
+<script src="${ctxPath}/static/modular/member/membershipChargeLog/membershipChargeLog.js"></script>
+@}

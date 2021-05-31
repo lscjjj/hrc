@@ -1,0 +1,140 @@
+#logo_h2{
+    margin-top: 15px;
+    color: #28b7bc;
+    font-size: 24px;
+    text-align: center;
+}
+#logo_img{
+    padding-top: 40%;
+}
+#index_member{
+
+    width: 300px;
+    margin: 0 auto;
+}
+html, body {
+    height: 100%;
+    background-color: white;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+#logo_form{
+    margin-top: 3rem;
+}
+#logo_form :nth-child(2)
+{
+    margin-top: 1rem;
+}
+#logo_form :nth-child(3)
+{
+    height: 5rem;
+    line-height: 5rem;
+    margin: 0;
+}
+#logo_form>button
+{
+    background-color: #18a689;
+}
+#information_h2{
+    padding: 1rem 0;
+    font-weight: 700;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #ddd;
+}
+#information_index{
+    width: 50%;
+    margin: 0 2rem;
+}
+.row{
+    padding-top: 1rem !important;
+}
+#information_button{
+    padding: .3rem 4rem;
+    background-color: #28b7bc;
+    border-color: #28b7bc;
+    margin: 6rem auto 3rem auto;
+    display: block;
+}
+#family_add_index{
+    margin: 20px 30px;
+    overflow: hidden;
+}
+.family_row,#detailed_index>p{
+    border-bottom: 1px solid #ddd;
+
+}
+#detailed_index>p{
+    padding: 2rem 0;
+}
+#detailed_index{
+    margin: 0 2rem;
+}
+#consultationInfo,#exampleForm_feel{
+    height: 12rem !important;
+}
+#Interrogation_btn{
+    margin: 0 1rem;
+}
+.Interrogation_sex{
+    line-height: 12rem !important;
+}
+#detailed_index>p>span{
+    color: #999;
+    font-size: 12px;
+}
+#detailed_index :nth-child(1)>span
+{
+    color: brown;
+}
+.layui-timeline-title{
+    border-top: 1px solid #999;
+}
+.layui-timeline{
+    margin-top: 2rem;
+}
+.common-bottom{
+    border-bottom: 1px solid #ddd;
+}
+.flex_teshu{
+    flex-direction: column!important;
+    align-items: center!important;
+    display: flex!important;
+    padding-top: 5%;
+}
+.float-right{
+    float: right;
+}
+.float-right:hover{
+    color: darkred;
+    cursor:pointer
+}
+
+#imgPreId{
+    min-height: 61px;
+    min-width: 30px;
+}
+/*#docPreId :nth-child(2){*/
+/*    margin: 0 2rem;*/
+/*}*/
+.layui-timeline-content>span{
+    display: block;
+    margin: 2rem;
+    word-wrap: break-word;
+    max-width: 42%;
+    margin-left: 0;
+}
+.onlyclass{
+    display: inline;
+}
+#faceImgAttachmentBtnId .webuploader-pick{
+    background: white;
+}
+#tongueImgAttachmentBtnId .webuploader-pick{
+    background: white;
+}
+#partImgAttachmentBtnId .webuploader-pick{
+    background: white;
+}
