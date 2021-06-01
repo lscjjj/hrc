@@ -218,9 +218,18 @@ $(function() {
         $('#cardid').val(arr[3]);
         $.post("/treatment/treatmentByMember",{member:result['id']},function(dt){
             // var dt = JSON.parse(result);
+            // if(dt.length>0){
+            //     $('.treatment-pane').show();
+            // }
+            $('#treatment')[0].innerHTML = ""
             if(dt.length>0){
-                $('.treatment-pane').show();
+                $('#treatment').show();
+                $('#treatment1').hide();
+            }else{
+                $('#treatment').hide();
+                $('#treatment1').show();
             }
+
             $.each(dt,function(idx,item){
                 $('#treatment').append('<option value="'+item['id']+'">'+item['projects']+'('+item['time']+')</option>');
             });

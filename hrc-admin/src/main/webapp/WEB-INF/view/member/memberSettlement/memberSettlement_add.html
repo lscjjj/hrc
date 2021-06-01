@@ -59,6 +59,11 @@
                             <select id="treatment" name="treatment" class="form-control">
 
                             </select>
+                        <select id="treatment1" name="treatment" class="form-control" style="display: none">
+                            @for(p in projects){
+                            <option value="${p.id}">${p.name}</option>
+                            @}
+                        </select>
                         </div>
                     </div>
 

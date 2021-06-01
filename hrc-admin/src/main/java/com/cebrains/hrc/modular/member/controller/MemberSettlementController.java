@@ -108,6 +108,8 @@ public class MemberSettlementController extends BaseController {
             return PREFIX + "404.html";
         }
         model.addAttribute("paymentMethodDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_PAYM));
+        List<Project> projects = projectService.selectList(null);
+        model.addAttribute("projects", projects);
         return PREFIX + "memberSettlement_add.html";
     }
 
