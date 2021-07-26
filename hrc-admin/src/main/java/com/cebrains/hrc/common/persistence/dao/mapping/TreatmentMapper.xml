@@ -40,8 +40,10 @@ GROUP BY t.id
 
     <select id="treatmentByMember" parameterType="java.lang.Integer" resultType="java.util.Map">
         SELECT
-  t.id,
+    t.id,
+    group_concat(td.project_id) pid,
   group_concat(p.name) projects,
+  group_concat(p.price_once_1) kfprice,
   t.create_time             time
 FROM treatment t
   LEFT JOIN member m ON m.id = t.user_id

@@ -3,7 +3,9 @@ package com.cebrains.hrc.common.persistence.model;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -65,6 +67,7 @@ public class Consumable extends Model<Consumable> {
 
     /**
      * 非存储字段
+     *
      * @return
      */
     @TableField(exist = false)
@@ -159,17 +162,17 @@ public class Consumable extends Model<Consumable> {
     @Override
     public String toString() {
         return "Consumable{" +
-        "id=" + id +
-        ", name=" + name +
-        ", number=" + number +
-        ", specification=" + specification +
-        ", price=" + price +
-        ", measureUnit=" + measureUnit +
-        ", manufacturer=" + manufacturer +
-        ", department=" + department +
-        ", amount=" + amount +
-        ", createTime=" + createTime +
-        "}";
+                "id=" + id +
+                ", name=" + name +
+                ", number=" + number +
+                ", specification=" + specification +
+                ", price=" + price +
+                ", measureUnit=" + measureUnit +
+                ", manufacturer=" + manufacturer +
+                ", department=" + department +
+                ", amount=" + amount +
+                ", createTime=" + createTime +
+                "}";
     }
 
     public String getDepartmentName() {

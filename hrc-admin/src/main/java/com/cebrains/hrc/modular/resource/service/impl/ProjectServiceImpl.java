@@ -26,4 +26,34 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     public List<Project> projectInformationByTreatment(Integer treatment) {
         return projectMapper.projectInformationByTreatment(treatment);
     }
+
+    @Override
+    public List<Project> selectPrice(Integer id) {
+        return projectMapper.selectPrice(id);
+    }
+
+    @Override
+    public List<Project> selectOne() {
+        return projectMapper.selectOne();
+    }
+
+    @Override
+    public List<Project> selectTwo() {
+        return projectMapper.selectTwo();
+    }
+
+    @Override
+    public List<Project> selectThree() {
+        return projectMapper.selectThree();
+    }
+
+    @Override
+    public List<Project> selectFour() {
+        return projectMapper.selectFour();
+    }
+
+    @Override
+    public List<Project> selectFive() {
+        return projectMapper.selectFive();
+    }
 }

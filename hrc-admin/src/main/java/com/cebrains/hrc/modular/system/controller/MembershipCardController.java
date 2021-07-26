@@ -49,6 +49,11 @@ public class MembershipCardController extends BaseController {
         return PREFIX + "membershipCard.html";
     }
 
+    @RequestMapping("/jump")
+    public String jumpIndex() {
+        return PREFIX + "membershipCard.html";
+    }
+
     /**
      * 跳转到添加会员卡
      */
@@ -112,7 +117,8 @@ public class MembershipCardController extends BaseController {
         }else{
             result = membershipCardService.selectAllCardByDep(depId);
             if (k != null){
-                result = membershipCardService.selectSuggestCardListByDep(k,depId);
+                result = membershipCardService.selectSuggestCardList(k);
+//                result = membershipCardService.selectSuggestCardListByDep(k,depId);
             }
         }
 //        List<MembershipCard> membershipCardList = null;

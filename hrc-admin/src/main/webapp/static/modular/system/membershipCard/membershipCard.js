@@ -147,6 +147,12 @@ $(function () {
             }
             len = json.length;
             for (i = 0; i < len; i++) {
+                if (json[i]['id'] == "" || json[i]['id'] == null || json[i]['id'] == undefined){
+                    json[i]['id'] = "暂未添加";
+                }
+                if (json[i]['number'] == "" || json[i]['number'] == null || json[i]['number'] == undefined){
+                    json[i]['number'] = "暂未添加";
+                }
                 data.value.push({"id": json[i]['id'], "name": json[i]['name'],"number": json[i]['number'], "mobile": json[i]['mobile'], "idCard": json[i]['idCard']})
             }
             return data
@@ -165,5 +171,5 @@ $("#condition").on('click',function (){
     $relute = $('#condition').val();
     if($relute == ' ' || $relute == ''){
         $('#condition').val(' ');
-    }condition
+    }
 });

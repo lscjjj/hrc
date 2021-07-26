@@ -17,4 +17,8 @@ import java.util.List;
 public interface IMembershipChargeLogService extends IService<MembershipChargeLog> {
 
     List<MembershipChargeLog> selectThisDept(Integer depId);
+
+    List<MembershipChargeLog> selectLogList();
+
+    void deleteLog(Integer id);
 }

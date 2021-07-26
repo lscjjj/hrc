@@ -73,6 +73,16 @@ public class ProjectController extends BaseController {
     }
 
     /**
+     * 获取项目下拉列表
+     */
+    @RequestMapping(value = "/selectPrice")
+    @ResponseBody
+    public Object selectPrice(Integer id){
+        List<Project> projects = projectService.selectPrice(id);
+        return new ProjectWrapper(projects).wrap();
+    }
+
+    /**
      * 新增项目管理
      */
     @RequestMapping(value = "/add")

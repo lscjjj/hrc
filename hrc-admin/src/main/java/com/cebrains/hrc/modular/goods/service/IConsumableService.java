@@ -17,4 +17,5 @@ import java.util.List;
 public interface IConsumableService extends IService<Consumable> {
 
     List<Consumable> selectByDeptId(Integer deptid);
+
 }

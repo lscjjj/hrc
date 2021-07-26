@@ -62,8 +62,8 @@ public class MembershipChargeLogController extends BaseController {
     /**
      * 跳转到会员充值
      */
-    @RequestMapping(value = {"/membershipChargeLog_add/{id}","/membershipChargeLog_add"})
-    public String membershipChargeLogAdd(@PathVariable(value = "id" ,required = false)Integer id, Model model) {
+    @RequestMapping(value = {"/membershipChargeLog_add/{id}", "/membershipChargeLog_add"})
+    public String membershipChargeLogAdd(@PathVariable(value = "id", required = false) Integer id, Model model) {
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
         Integer opsUserId = shiroUser.getId();
         Integer departmentId = shiroUser.getDeptId();
@@ -73,32 +73,32 @@ public class MembershipChargeLogController extends BaseController {
         Wrapper<Dept> wrapper = new EntityWrapper<>();
         wrapper = wrapper.eq("pid", 0);
         List<Dept> depts = deptMapper.selectList(wrapper);
-        model.addAttribute("departments",depts);
+        model.addAttribute("departments", depts);
 
         Wrapper<User> userWrapper = new EntityWrapper<>();
         userWrapper = userWrapper.eq("deptid", departmentId);
         List<User> users = userMapper.selectList(userWrapper);
-        model.addAttribute("users",users);
-        model.addAttribute("userId",opsUserId);
-        model.addAttribute("userName",userName);
-        model.addAttribute("departmentId",departmentId);
-        model.addAttribute("departmentName",deptName);
+        model.addAttribute("users", users);
+        model.addAttribute("userId", opsUserId);
+        model.addAttribute("userName", userName);
+        model.addAttribute("departmentId", departmentId);
+        model.addAttribute("departmentName", deptName);
 
-        if (id !=null ){
+        if (id != null) {
             Member member = ConstantFactory.me().getMemberByCard(id);
-            model.addAttribute("memberName",member.getRealName());
-            model.addAttribute("card",id);
-            model.addAttribute("idCard",member.getIdCard());
-            model.addAttribute("mobile",member.getPhone());
-            model.addAttribute("number",ConstantFactory.me().getMembershipCardNumber(id));
-            model.addAttribute("balance",ConstantFactory.me().getMembershipCardBalance(id));
-        }else{
-            model.addAttribute("memberName","");
-            model.addAttribute("card","");
-            model.addAttribute("idCard","");
-            model.addAttribute("mobile","");
-            model.addAttribute("number","");
-            model.addAttribute("balance","");
+            model.addAttribute("memberName", member.getRealName());
+            model.addAttribute("card", id);
+            model.addAttribute("idCard", member.getIdCard());
+            model.addAttribute("mobile", member.getPhone());
+            model.addAttribute("number", ConstantFactory.me().getMembershipCardNumber(id));
+            model.addAttribute("balance", ConstantFactory.me().getMembershipCardBalance(id));
+        } else {
+            model.addAttribute("memberName", "");
+            model.addAttribute("card", "");
+            model.addAttribute("idCard", "");
+            model.addAttribute("mobile", "");
+            model.addAttribute("number", "");
+            model.addAttribute("balance", "");
         }
 
         return PREFIX + "membershipChargeLog_add.html";
@@ -110,7 +110,7 @@ public class MembershipChargeLogController extends BaseController {
     @RequestMapping("/membershipChargeLog_update/{membershipChargeLogId}")
     public String membershipChargeLogUpdate(@PathVariable Integer membershipChargeLogId, Model model) {
         MembershipChargeLog membershipChargeLog = membershipChargeLogService.selectById(membershipChargeLogId);
-        model.addAttribute("item",membershipChargeLog);
+        model.addAttribute("item", membershipChargeLog);
         LogObjectHolder.me().set(membershipChargeLog);
         return PREFIX + "membershipChargeLog_edit.html";
     }
@@ -124,12 +124,14 @@ public class MembershipChargeLogController extends BaseController {
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
         Integer depId = shiroUser.deptId;
         List<MembershipChargeLog> membershipChargeLogs = null;
-        if(shiroUser.roleList.contains(1)){
-            membershipChargeLogs = membershipChargeLogService.selectList(new EntityWrapper<MembershipChargeLog>()
-                    .orderDesc(Collections.singletonList("create_time")));
-        }else{
+        if (shiroUser.roleList.contains(1)) {
+//            membershipChargeLogs = membershipChargeLogService.selectList(new EntityWrapper<MembershipChargeLog>()
+//                    .orderDesc(Collections.singletonList("create_time")));
+            membershipChargeLogs = membershipChargeLogService.selectLogList();
+        } else {
             membershipChargeLogs = membershipChargeLogService.selectThisDept(depId);
         }
+
 
         return new MembershipChargeLogWrapper(membershipChargeLogs).wrap();
     }
@@ -139,9 +141,9 @@ public class MembershipChargeLogController extends BaseController {
      */
     @RequestMapping(value = "/search/{card}")
     @ResponseBody
-    public Object searchByCard(@PathVariable(value = "card")Integer card){
+    public Object searchByCard(@PathVariable(value = "card") Integer card) {
         List<MembershipChargeLog> membershipChargeLogs = membershipChargeLogService.selectList(new EntityWrapper<MembershipChargeLog>()
-        .eq("card",card));
+                .eq("card", card));
         return new MembershipChargeLogWrapper(membershipChargeLogs).wrap();
     }
 
@@ -158,39 +160,39 @@ public class MembershipChargeLogController extends BaseController {
         double givenAmount = membershipChargeLog.getGivenAmount();
         double sum = balance + givenAmount + membershipChargeLog.getAmount();
         membershipChargeLog.setRemainingAmount(sum);
-        if(membershipChargeLog.getAmount()!=null && membershipChargeLog.getAmount()>0) {
+        if (membershipChargeLog.getAmount() != null && membershipChargeLog.getAmount() > 0) {
             MembershipCard membershipCard = membershipCardMapper.selectById(membershipChargeLog.getCard());
-            if(membershipCard==null){
-                return new ErrorTip(400,"该会员卡不存在");
+            if (membershipCard == null) {
+                return new ErrorTip(400, "该会员卡不存在");
             }
-            if(membershipChargeLog.getGivenAmount()<0){
-                return new ErrorTip(400,"赠送金额不正确");
+            if (membershipChargeLog.getGivenAmount() < 0) {
+                return new ErrorTip(400, "赠送金额不正确");
             }
-            membershipCard.setBalance(membershipCard.getBalance()+membershipChargeLog.getAmount()+membershipChargeLog.getGivenAmount());
-            List<Dict> dicts = ConstantFactory.me().getLevelPresentDicts().stream().filter(ls -> ls.getNum() <= membershipChargeLog.getAmount()).sorted(Comparator.comparingInt(Dict::getNum).reversed()).collect(Collectors.toList());
-            if(dicts!=null && dicts.size()>0){
-                Dict pdict = dicts.get(0);
-                Integer level = pdict.getNum();
-                if(level>membershipCard.getLevel()) {
-                    membershipCard.setLevel(level);
-                }
-                membershipCard.setBalance(membershipCard.getBalance()+Double.parseDouble(pdict.getName()));
-                String discountValue = ConstantFactory.me().getMemberDiscountByLevel(level);
-                if(StringUtils.isNotEmpty(discountValue)){
-                    membershipCard.setDiscount(Integer.valueOf(discountValue));
-                }
-            }
-            if (membershipCard.getGivenAmount()==null){
+            membershipCard.setBalance(membershipCard.getBalance() + membershipChargeLog.getAmount() + membershipChargeLog.getGivenAmount());
+//            List<Dict> dicts = ConstantFactory.me().getLevelPresentDicts().stream().filter(ls -> ls.getNum() <= membershipChargeLog.getAmount()).sorted(Comparator.comparingInt(Dict::getNum).reversed()).collect(Collectors.toList());
+//            if(dicts!=null && dicts.size()>0){
+//                Dict pdict = dicts.get(0);
+//                Integer level = pdict.getNum();
+//                if(level>membershipCard.getLevel()) {
+//                    membershipCard.setLevel(level);
+//                }
+//                membershipCard.setBalance(membershipCard.getBalance()+Double.parseDouble(pdict.getName()));
+//                String discountValue = ConstantFactory.me().getMemberDiscountByLevel(level);
+//                if(StringUtils.isNotEmpty(discountValue)){
+//                    membershipCard.setDiscount(Integer.valueOf(discountValue));
+//                }
+//            }
+            if (membershipCard.getGivenAmount() == null) {
                 membershipCard.setGivenAmount((double) 0);
             }
-            if (membershipCard.getAmount()==null){
+            if (membershipCard.getAmount() == null) {
                 membershipCard.setAmount((double) 0);
             }
-            membershipCard.setGivenAmount(membershipCard.getGivenAmount()+membershipChargeLog.getGivenAmount());
-            membershipCard.setAmount(membershipCard.getAmount()+membershipChargeLog.getAmount());
+            membershipCard.setGivenAmount(membershipCard.getGivenAmount() + membershipChargeLog.getGivenAmount());
+            membershipCard.setAmount(membershipCard.getAmount() + membershipChargeLog.getAmount());
             membershipCardMapper.updateById(membershipCard);
-        }else{
-            return new ErrorTip(200,"请确认充值金额");
+        } else {
+            return new ErrorTip(200, "请确认充值金额");
         }
         membershipChargeLog.setCreated(opsUserId);
         membershipChargeLog.setDepartment(departmentId);
@@ -203,27 +205,27 @@ public class MembershipChargeLogController extends BaseController {
      */
     @RequestMapping(value = "/chargePresent")
     @ResponseBody
-    public Object chargePresent(@Param("amount")Double amount,@Param("membershipCard")Integer membershipCard) {
-        Map<String,String> result = new HashMap<>();
-        if(amount>0&&membershipCard>0) {
+    public Object chargePresent(@Param("amount") Double amount, @Param("membershipCard") Integer membershipCard) {
+        Map<String, String> result = new HashMap<>();
+        if (amount > 0 && membershipCard > 0) {
             MembershipCard mc = membershipCardMapper.selectById(membershipCard);
-            if(mc==null){
-                return new ErrorTip(404,"该会员卡不存在");
+            if (mc == null) {
+                return new ErrorTip(404, "该会员卡不存在");
             }
             List<Dict> dicts = ConstantFactory.me().getLevelPresentDicts().stream().filter(ls -> ls.getNum() <= amount).sorted(Comparator.comparingInt(Dict::getNum).reversed()).collect(Collectors.toList());
-            if(dicts!=null && dicts.size()>0){
+            if (dicts != null && dicts.size() > 0) {
                 Dict pdict = dicts.get(0);
                 Integer level = pdict.getNum();
-                if(level<mc.getLevel()){
+                if (level < mc.getLevel()) {
                     level = mc.getLevel();
                 }
-                result.put("level",ConstantFactory.me().getDictsByName(IConstantFactory.DICT_KEY_MCN,level));
-               result.put("present",pdict.getName());
-               result.put("balance",String.valueOf(mc.getBalance()+amount+Double.parseDouble(pdict.getName())));
+                result.put("level", ConstantFactory.me().getDictsByName(IConstantFactory.DICT_KEY_MCN, level));
+                result.put("present", pdict.getName());
+                result.put("balance", String.valueOf(mc.getBalance() + amount + Double.parseDouble(pdict.getName())));
             }
             return new SuccessResultTip(result);
-        }else{
-            return new ErrorTip(400,"请确认充值金额");
+        } else {
+            return new ErrorTip(400, "请确认充值金额");
         }
     }
 
@@ -235,6 +237,16 @@ public class MembershipChargeLogController extends BaseController {
     public Object delete(@RequestParam Integer membershipChargeLogId) {
         membershipChargeLogService.deleteById(membershipChargeLogId);
         return SUCCESS_TIP;
+    }
+
+    /**
+     * 软删除会员充值记录
+     */
+    @RequestMapping(value = "/deleteByLog")
+    @ResponseBody
+    public Object deleteLog(Integer id) {
+        membershipChargeLogService.deleteLog(id);
+        return super.SUCCESS_TIP;
     }
 
     /**

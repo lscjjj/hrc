@@ -11,38 +11,53 @@
     <link href="${ctxPath}/static/css/animate.css" rel="stylesheet">
     <link href="${ctxPath}/static/css/style.css?v=4.1.0" rel="stylesheet">
 </head>
+<style>
+    .navbar-default .nav > li > a:active {
+        background: #fff !important;
+        color: #28b7bc !important;
+    }
 
+    .tab-menu-selected {
+        color: #28b7bc !important;
+    }
+</style>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
-    <div id="wrapper">
-    
-        <!--左侧导航开始-->
-        	@include("/common/_tab.html"){}
-        <!--左侧导航结束-->
-        
-        <!--右侧部分开始-->
-        	@include("/common/_right.html"){}
-        <!--右侧部分结束-->
-        
-        <!--右侧边栏开始-->
-        	@include("/common/_theme.html"){}
-        <!--右侧边栏结束-->
-       
-    </div>
+<div id="wrapper">
 
-    <!-- 全局js -->
-    <script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="${ctxPath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="${ctxPath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="${ctxPath}/static/js/plugins/layer/layer.min.js"></script>
+    <!--左侧导航开始-->
+    @include("/common/_tab.html"){}
+    <!--左侧导航结束-->
 
-    <!-- 自定义js -->
-    <script src="${ctxPath}/static/js/hplus.js?v=4.1.0"></script>
-    <script type="text/javascript" src="${ctxPath}/static/js/contabs.js"></script>
+    <!--右侧部分开始-->
+    @include("/common/_right.html"){}
+    <!--右侧部分结束-->
 
-    <!-- 第三方插件 -->
-    <script src="${ctxPath}/static/js/plugins/pace/pace.min.js"></script>
+    <!--右侧边栏开始-->
+    @include("/common/_theme.html"){}
+    <!--右侧边栏结束-->
 
+</div>
+
+<!-- 全局js -->
+<script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${ctxPath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="${ctxPath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/layer/layer.min.js"></script>
+
+<!-- 自定义js -->
+<script src="${ctxPath}/static/js/hplus.js?v=4.1.0"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/contabs.js"></script>
+
+<!-- 第三方插件 -->
+<script src="${ctxPath}/static/js/plugins/pace/pace.min.js"></script>
+<script>
+    $("#dl").onclick = function () {
+        localStorage.removeItem("uname");
+        var uname = $("#username").val();
+        localStorage.setItem("uname", uname);
+    }
+</script>
 </body>
 
 </html>

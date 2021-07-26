@@ -28,4 +28,5 @@ public class ConsumableServiceImpl extends ServiceImpl<ConsumableMapper, Consuma
     public List<Consumable> selectByDeptId(Integer deptid) {
         return consumableMapper.selectByDeptId(deptid);
     }
+
 }

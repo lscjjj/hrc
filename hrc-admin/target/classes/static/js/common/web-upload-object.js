@@ -314,7 +314,7 @@
                     isbig_test = 1;
                     switch (me.docId) {
                         case 'doc':
-                            var $att = $('<div class="att-pane"><a class="att-link" target="_blank" href="">'+file.name+'</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="att-del">删除</a> </div>')
+                            var $att = $('<div class="att-pane"><a class="att-link" target="_blank" href="">'+file.name+'</a>&nbsp;&nbsp;<a class="att-del">删除</a> </div>')
                             break;
                         case 'faceImgAttachment':
                             var $att = $('<div class="att-pane"><a class="att-link-faceImgAttachment" href="" target="_blank"><img class="att-link-faceImgAttachment" target="_blank" width="100px" height="100px" src=""/></a></div>')
@@ -334,6 +334,9 @@
                     // }
                         // var $att = $('<div class="att-pane"><a class="att-link" target="_blank" href="">'+file.name+'</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="att-del">删除</a> </div>')
                     $("#" + me.uploadPreId).append($att);
+                    $(".att-del").on('click', function () {
+                        $(this).parent().remove();
+                    });
                 };
 
             });

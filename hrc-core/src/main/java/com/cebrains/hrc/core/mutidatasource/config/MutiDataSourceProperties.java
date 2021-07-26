@@ -16,7 +16,7 @@ public class MutiDataSourceProperties {
 
     private String defaultDataSourceName = "dataSourceHRC";
 
-    private String url = "jdbc:mysql://mysql_serv:3306/biz?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+    private String url = "jdbc:mysql://39.104.81.209:3306/biz?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
 
     private String username = "hrcu";
 

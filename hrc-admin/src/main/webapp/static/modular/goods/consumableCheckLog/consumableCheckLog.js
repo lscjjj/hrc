@@ -30,7 +30,7 @@ ConsumableCheckLog.initColumn = function () {
 ConsumableCheckLog.check = function () {
     var selected = $('#' + this.id).bootstrapTable('getSelections');
     if(selected.length == 0){
-        Feng.info("请先选中表格中的某一记录！");
+        Feng.info("！");
         return false;
     }else{
         ConsumableCheckLog.seItem = selected[0];

@@ -1,26 +1,207 @@
 @layout("/common/_container.html"){
 <script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
 <style type="text/css">
-    .treatment-pane{
-        display:none;
+    .treatment-pane {
+        display: none;
     }
-    .mcpane{
-        display: block !important;
+
+    #treatment {
+        width: 60%;
     }
-    .hr-line-dashed{
-        display: none!important;
+
+    /*.mcpane {*/
+    /*    display: block !important;*/
+    /*}*/
+
+    .hr-line-dashed {
+        display: none !important;
     }
-    #otherBusiness{
-        width: 108%;
+
+    #otherBusiness {
+        width: 30%;
     }
-    .submitresult{
+
+    .submitresult {
         text-align: end;
         padding-right: 61px;
     }
-    .beizhu{
-        padding-left:50px;
+
+    .beizhu {
+        padding-left: 50px;
         padding-bottom: 20px;
         color: red;
+    }
+
+    .top {
+        display: flex;
+    }
+
+    .top > .form-group {
+        width: 30%;
+    }
+
+    .input-group > input {
+        height: 34px;
+        width: 310px;
+        border: #E5E6E7 solid 1px;
+        padding-left: 15px;
+    }
+
+    .formTop {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        color: #fff;
+        line-height: 40px;
+        margin: 0 auto !important;
+        text-align: center;
+        background: #24C6C8;
+    }
+
+    .formTop > div,
+    .tableWidth {
+        width: calc(100% / 7);
+        display: flex;
+        justify-content: center;
+    }
+
+    .borderDiv {
+        width: 80%;
+        border: #DEDEDE solid 1px;
+        border-top: none;
+        margin-left: 7.4%;
+    }
+
+    .borderWidth {
+        width: 100%;
+    }
+
+    .first {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #consumablePane > .col-sm-12 > .input-group > input {
+        width: 13%;
+        margin-left: 4%;
+    }
+
+    .buttonClass {
+        margin: 15px 0 0 35px;
+    }
+
+    .hr {
+        width: 90%;
+        height: 5px;
+        margin: 0 auto;
+        border: #F7F7F7 solid;
+        background: #F7F7F7;
+    }
+
+    .pay {
+        margin: 125px 0 20px -225px;
+        display: flex;
+    }
+
+    .pay > div {
+        width: 10%;
+    }
+
+    .pay > .payWay {
+        padding: 0 20px 0 0;
+    }
+
+    .jump{
+        background-color: #23c6c8;
+        border-color: #23c6c8;
+        color: #FFFFFF;
+        width: 85px;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 5px;
+        font-size: 13px;
+        position: absolute;
+        right: 15%;
+        top: 10%;
+        cursor: pointer;
+    }
+
+    .tc{
+        position: absolute;
+        width: 400px;
+        height: 250px;
+        text-align: center;
+        left: 35%;
+        top: 25%;
+        z-index: 99;
+        display: none;
+        color: #3d3d3d;
+        background: #fff;
+        border: 1px solid #E6E8EA;
+    }
+
+    .oneDiv{
+        display: flex;
+        position: absolute;
+        top: 25%;
+        left: 15%;
+    }
+
+    .oneDiv >div,
+    .secondeDiv >div{
+        line-height: 30px;
+        margin: 0 auto;
+    }
+
+    #transferCardConsumption{
+        height: 30px;
+        margin-left: 20px;
+        width: 220px;
+    }
+
+    .secondeDiv{
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 8%;
+    }
+
+    #transferAmount{
+        width: 220px;
+        height: 30px;
+        margin-left: 20px;
+    }
+
+    #cancle{
+        position: absolute;
+        bottom: 30px;
+        width: 70px;
+        height: 35px;
+        right: 5%;
+        background: #ED5666;
+        line-height: 35px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    #addFast{
+        position: absolute;
+        bottom: 30px;
+        width: 95px;
+        height: 35px;
+        left: 50%;
+        background: #28b7bc;
+        line-height: 35px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .buttonBody{
+        display: flex;
+        justify-content: space-evenly;
     }
 </style>
 <div class="ibox float-e-margins">
@@ -32,103 +213,383 @@
             <input type="hidden" id="department" value="${departmentId}">
             <input type="hidden" id="createdBy" value="${createdBy}">
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group beizhu">
-                        <span>消费类别</span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">会员姓名</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="memberValue">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+            <div class="row" style="position: relative;">
+                <div class="col-sm-12" style="width: 100%;">
+                    <div class="top">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">会员姓名</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="memberValue" placeholder="请输入会员姓名">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-white dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                    </div>
+                                    <!-- /btn-group -->
                                 </div>
-                                <!-- /btn-group -->
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">身份证号</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input id="cardid" name="身份证号" placeholder="自动识别" disabled="disabled"/>
+                                    <!--                                    <div class="input-group-btn">-->
+                                    <!--                                        <button type="button" class="btn btn-white dropdown-toggle"-->
+                                    <!--                                                data-toggle="dropdown">-->
+                                    <!--                                            <span class="caret"></span>-->
+                                    <!--                                        </button>-->
+                                    <!--                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>-->
+                                    <!--                                    </div>-->
+                                    <!-- /btn-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mcpane">
+                            <label class="col-sm-3 control-label">会员卡</label>
+                            <div class="col-sm-9">
+                                <select id="membershipCard" class="form-control" disabled="disabled">
+                                    <option value="">无会员卡</option>
+                                </select>
+                            </div>
+                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-sm-3 control-label">会员卡</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input id="membershipCard" name="卡号" underline="true"-->
+<!--                                           placeholder="自动识别" disabled="disabled"/>-->
+<!--                                    &lt;!&ndash;                                    <input id="transferCardConsumption" name="卡号" underline="true"&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                           placeholder="自动识别" disabled="disabled"/>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    <div class="input-group-btn">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <button type="button" class="btn btn-white dropdown-toggle"&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                                data-toggle="dropdown">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                            <span class="caret"></span>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        </button>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                    &lt;!&ndash; /btn-group &ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="col-sm-3 control-label">卡号</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input id="transferCardConsumption" name="卡号" underline="true"-->
+<!--                                           placeholder="自动识别" disabled="disabled"/>-->
+<!--&lt;!&ndash;                                    <input id="transferCardConsumption" name="卡号" underline="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           placeholder="自动识别" disabled="disabled"/>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    <div class="input-group-btn">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <button type="button" class="btn btn-white dropdown-toggle"&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                                data-toggle="dropdown">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                            <span class="caret"></span>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        </button>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                    &lt;!&ndash; /btn-group &ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
+                    <div class="form-group beizhu">
+                        <span style="color: #ccc;">消费类别</span>
+                    </div>
+                    <div class="jump" onclick="jump()">结算历史查看</div>
+                    <div class="borderDiv">
+                        <div class="borderWidth">
+                            <div class="form-group beizhu" style="display: none;">
+                                <span>消费数额(元)</span>
+                            </div>
+                            <div class="form-group formTop">
+                                <div>结算内容</div>
+                                <div>编号</div>
+                                <div>规格</div>
+                                <div>单位</div>
+                                <div>单价</div>
+                                <div>数量</div>
+                                <div>金额</div>
+                            </div>
+                            <div class="form-group treatment-pane" style="display: block;margin:20px 0 0 20px;">
+                                <div style="width: 95%;">
+                                    <div class="first">
+                                        <select id="treatment" name="treatment" class="form-control">
 
-                    <div class="form-group treatment-pane" style="display: block">
-                        <label class="col-sm-3 control-label">康复项目</label>
-                        <div class="col-sm-9">
-                            <select id="treatment" name="treatment" class="form-control">
+                                        </select>
+                                        <select id="treatment1" name="treatment" class="form-control"
+                                                style="display: none;width: 60%;" placeholder="请选择症状">
+                                            <option value="">请选择症状</option>
+                                            @for(p in projects){
+                                            <option value="${p.id}">${p.name}</option>
+                                            @}
+                                        </select>
+                                        <!--                                        <#input id="kfprice" name="康复项目" placeholder="输入金额" style="width: 100px;"/>-->
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <input class="form-control" id="kfprice" name="kfprice" type="text"
+                                                       placeholder="请输入金额" disabled="disabled">
 
-                            </select>
-                        <select id="treatment1" name="treatment" class="form-control" style="display: none">
-                            @for(p in projects){
-                            <option value="${p.id}">${p.name}</option>
-                            @}
-                        </select>
+                                            </div>
+                                        </div>
+                                        <!--                                        <div class="form-group">-->
+                                        <!--                                            <div class="col-sm-9">-->
+                                        <!--                                                <input class="form-control" id="kprice" name="kprice" type="text" placeholder="输入金额">-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group addProduct">
+                                <div id="consumablePane">
+<!--                                    <div class="col-sm-12" style="display: flex;margin-top: 10px;">-->
+<!--                                        <div class="input-group col-sm-9"-->
+<!--                                             style="float: left;display: flex;width: 100%;height: 40px;line-height: 40px;margin: 0 auto !important;text-align: center;">-->
+<!--                                                <input type="text" class="form-control consumableName"-->
+<!--                                                       placeholder="请选择耗材"-->
+<!--                                                       style="margin-left: 20px;" autocomplete="off"><input-->
+<!--                                                    type="hidden" class="consumableValue">-->
+<!--                                                <div class="input-group-btn" style="width: 30px;">-->
+<!--                                                    <button type="button" class="btn btn-white dropdown-toggle"-->
+<!--                                                            data-toggle=""><span class="caret"></span></button>-->
+<!--                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"-->
+<!--                                                        style="margin-left: 1000px; padding-top: 0px; max-height: 375px; max-width: 800px; overflow: auto; width: auto; transition: all 0.3s ease 0s; left: -1307px; right: auto; min-width: 1320px;"></ul>-->
+<!--                                                </div>-->
+<!--                                            <div class="tableWidth">-->
+<!--                                                <span class="number" style="font-size: 15px;color: #999999">未识别</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="tableWidth">-->
+<!--                                                <span class="specification"-->
+<!--                                                      style="font-size: 15px;color: #999999">未识别</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="tableWidth">-->
+<!--                                                <span class="measureUnit"-->
+<!--                                                      style="font-size: 15px;color: #999999">未识别</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="tableWidth">-->
+<!--                                                <span class="price" style="font-size: 15px;color: #999999">未识别</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="tableWidth">-->
+<!--                                                <input-->
+<!--                                                        type="hidden" class="consumableAvailable"> <input type="text"-->
+<!--                                                                                                          class="form-control consumableAmount"-->
+<!--                                                                                                          placeholder="请输入数量">-->
+<!--                                            </div>-->
+<!--                                            <div class="tableWidth" style="display: flex;">-->
+<!--                                                <input-->
+<!--                                                        class="form-control" id="kprice" name="kprice" type="text" style="margin-left: 10px;"-->
+<!--                                                        placeholder="输入金额" readonly="">-->
+<!--                                                <button type="button" class="btn btn-danger delete-consumable"-->
+<!--                                                        onclick="MemberSettlementInfoDlg.deleteConsumable(event)"-->
+<!--                                                        style="margin-left: 2%;margin-right: 10px;"><i-->
+<!--                                                        class="fa fa-remove"></i>&nbsp;删除-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                </div>
+                                <button type="button" class="btn btn-info btn-add-consumable buttonClass"
+                                        onclick="MemberSettlementInfoDlg.addConsumable()" id="addConsumable">
+                                    <i class="fa fa-plus">添加产品</i>
+                                </button>
+                            </div>
+                            <!--                            <#input id="kprice" name="康复产品" placeholder="请输入金额"/>-->
+                            <!--                            <#input id="transferCardConsumption" name="转卡消费" underline="true" placeholder="请输入转卡卡号"/>-->
+                            <!--                            <#input id="transferAmount" name="转卡消费" underline="true" placeholder="请输入转卡消费金额"/>-->
+                            <div class="hr"></div>
+                            <div class="form-group"
+                                 style="margin: 15px auto;display: flex;justify-items: flex-end;justify-content: flex-end;width: 90%;">
+                                <label class="col-sm-3 control-label">康复产品总计</label>
+                                <div class="">
+                                    <input class="form-control" id="count" name="count" type="text"
+                                           style="width: 150px;" placeholder="自动识别" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+<!--                    <div class="form-group mcpane" style="display: none">-->
+<!--                        <label class="col-sm-3 control-label">会员卡</label>-->
+<!--                        <div class="col-sm-9">-->
+<!--                            <select id="membershipCard" class="form-control">-->
+<!--                                <option value="">请选择支付方式后在选择会员卡</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group col-sm-12" style="margin: 25px 0 10px -180px;">
+                        <div class="col-sm-12"><#input id="otherBusiness" name="其他业务" underline="true"
+                            placeholder="请输入其他业务"/>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">康复产品</label>
-                        <#button btnCss="info btn-add-consumable" name="添加产品" id="addConsumable" icon="fa-plus" clickFun="MemberSettlementInfoDlg.addConsumable()" />
-                        <div id="consumablePane">
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group mcpane">
-                        <label class="col-sm-3 control-label">会员卡</label>
-                        <div class="col-sm-9">
-                            <select id="membershipCard" class="form-control">
-                                <option value="">请选择支付方式后在选择会员卡</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-sm-12">
-                        <div class="col-sm-12"><#input id="otherBusiness" name="其他业务" underline="true" placeholder="请输入其他业务"/></div>
-                    </div>
-
-                    <#select id="paymentMethod" name="支付方式" underline="true">
-                    <option value="">请选择支付方式</option>
-                    @for(p in paymentMethodDict){
-                    <option value="${p.num}">${p.name}</option>
-                    @}
-                    </#select>
-
-           </div>
-            <div class="col-sm-6">
-                <div class="form-group beizhu">
-                    <span>消费数额(元)</span>
-                </div>
-                <#input id="cardid" name="身份证号"/>
-                <#input id="kfprice" name="康复项目" placeholder="请输入金额"/>
-                <#input id="kprice" name="康复产品" placeholder="请输入金额"/>
-                <#input id="transferCardConsumption" name="转卡消费" underline="true" placeholder="请输入转卡卡号"/>
-                <#input id="transferAmount" name="转卡消费" underline="true" placeholder="请输入转卡消费金额"/></div>
-            </div>
-
-            <div class="submitresult">
-
-                总计金额:<input id="paymentAmount" name="总计金额" value="" style="width: 60px" readonly/>￥自动核算（消费总额=项目内容金额+消费产品金额)
-                <br>
-                <br>
-                制单人：<select id="createdBy1" class="" style="width: 60px">
-                        @for(user in users){
-                        <option value="${user.id}">${user.name}</option>
+                    <select id="paymentMethod" name="支付方式" underline="true" style="display: none;">
+                        <option value="">请选择支付方式</option>
+                        @for(p in paymentMethodDict){
+                        <option value="${p.num}">${p.name}</option>
                         @}
                     </select>
 
-                <br>
-                <br>
-                <#button btnCss="info" name="确定结算" id="ensure" icon="fa-check" clickFun="MemberSettlementInfoDlg.addSubmit()"/>
-            </div>
+                    <div class="pay">
+                        <label class="col-sm-3 control-label payWay">支付方式</label>
+                        <div style="text-align: center;">
+                            <img src="../../../static/img/vip.png" alt="">
+                            <div>会员卡</div>
+                            <input type="radio" name="hyk" value="1" id="hyk">
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="../../../static/img/money.png" alt="">
+                            <div>现金</div>
+                            <input type="radio" name="hyk" value="4" id="xj">
+                        </div>
+                    </div>
+                </div>
 
+                <div class="tc">
+<!--                    <#input id="transferCardConsumption" name="卡号" underline="true" placeholder="请输入转卡卡号"/>-->
+                    <div class="oneDiv">
+                        <div>卡号</div><input id="transferCardConsumption" name="卡号" underline="true" placeholder="请输入转卡卡号" autocomplete="off"/>
+
+                    </div>
+                    <div class="secondeDiv">
+                        <div>转卡消费</div><input id="transferAmount" name="转卡消费" underline="true" placeholder="请输入转卡消费金额" autocomplete="off"/>
+                    </div>
+<!--                    <#input id="transferAmount" name="转卡消费" underline="true" placeholder="请输入转卡消费金额"/>-->
+                    <div class="buttonBody">
+                        <button id="addFast" onclick="MemberSettlementInfoDlg.addSubmit()"><i class="fa fa-check"></i>&nbsp;转卡支付</button>
+                        <button id="cancle" onclick="closeTc()"><i class="fa fa-eraser"></i>&nbsp;取消</button>
+                    </div>
+                </div>
+
+                <div class="submitresult">
+
+                    总计金额:<input id="paymentAmount" name="总计金额" value="" style="width: 60px" readonly/>￥自动核算（消费总额=项目内容金额+消费产品金额)
+                    <br>
+                    <br>
+                    制单人：<select id="createdBy1" class="" style="width: 65px">
+                    @for(user in users){
+                    <option value="${user.id}">${user.name}</option>
+                    @}
+                </select>
+
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-info " id="otherPay">
+                        会员卡代付
+                    </button>
+                    <#button btnCss="info" name="确定结算" id="ensure" icon="fa-check"
+                    clickFun="MemberSettlementInfoDlg.addSubmit()"/>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <script src="${ctxPath}/static/modular/member/memberSettlement/memberSettlement_info.js"></script>
+<script>
+    var dept = $('#department').val();
+    if (dept == '') {
+        Feng.error("请选择所在门店!");
+    }
+    $('#consumablePane').append("<div class=\"col-sm-12\" style=\"display: flex;margin-top: 10px;\"><div class=\"input-group col-sm-9\" style=\"float: left;display: flex;width: 100%;height: 40px;line-height: 40px;text-align: center;\"><input type=\"text\" class=\"form-control consumableName\" placeholder=\"请选择耗材\" style=\"margin-left: 20px;\"><input type='hidden' class='consumableValue'/><div class=\"input-group-btn\" style=\"width: 30px;\"><button type=\"button\" class=\"btn btn-white dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"caret\"></span></button><ul class=\"dropdown-menu dropdown-menu-right\" role=\"menu\" style=\"margin-left: 1000px;\"></ul></div><div class=\"tableWidth\"><span class=\"number\" style=\"font-size: 15px;color: #999999\"\">未识别</span></div><div class=\"tableWidth\"><span class=\"specification\" style=\"font-size: 15px;color: #999999\">未识别</span></div><div class=\"tableWidth\"><span class=\"measureUnit\" style=\"font-size: 15px;color: #999999\">未识别</span></div><div class=\"tableWidth\"><span class=\"price\" style=\"font-size: 15px;color: #999999\">未识别</span></div><div class=\"tableWidth\"> <input type='hidden' class='consumableAvailable'/> <input type=\"text\" class=\"form-control consumableAmount\" placeholder=\"请输入数量\"></div><div class=\"tableWidth\"><input class=\"form-control\" id=\"kprice\" name=\"kprice\" type=\"text\" placeholder=\"输入金额\" style=\"margin-left: 10px;\" readonly><button type=\"button\" class=\"btn btn-danger delete-consumable\" onclick=\"MemberSettlementInfoDlg.deleteConsumable(event)\" class=\"delete-consumable\" style=\"margin-left: 2%;margin-right: 10px;\"><i class=\"fa fa-remove\"></i>&nbsp;删除</button></div></div>");
+    $(".consumableName").on('click', function () {
+        $relute = $(this).val();
+        if ($relute == ' ' || $relute == '') {
+            $(this).val(' ');
+        }
+    });
+    $(function () {
+        $(".consumableName").bsSuggest({
+            idField: 'consumable',
+            keyField: 'name',
+            allowNoKeyword: false,
+            multiWord: true,
+            separator: ",",
+            getDataMethod: "url",
+            effectiveFieldsAlias: {consumable: "编号", name: "名称", available: "可用数量"},
+            showHeader: true,
+            url: "/consumable/list?id=" + dept,
+            listAlign: "left",
+            processData: function (json) {
+                var i, len, data = {value: []};
+                if (!json || json.length == 0) {
+                    return false
+                }
+                len = json.length;
+
+                for (i = 0; i < len; i++) {
+                    data.value.push({
+                        "consumable": json[i]['id'],
+                        "name": json[i]['name'],
+                        "available": json[i]['amount']
+                    })
+                }
+                return data
+            }
+        });
+    });
+    $("input.consumableName").on("onSetSelectValue", function (event, result) {
+        var id = result['id'];
+        var selected = $("input.consumableValue[value='" + id + "']").length > 0;
+        if (selected) {
+            Feng.error("您已选择了该耗材!");
+            $(this).val('');
+            return;
+        }
+        var $ca = $(this).parent().children()[7].children[0];
+        var $number = $(this).parent().children()[3].children[0];
+        var $specification = $(this).parent().children()[4].children[0];
+        var $measureUnit = $(this).parent().children()[5].children[0];
+        var $price = $(this).parent().children()[6].children[0];
+        $(this).siblings('input.consumableValue').val(id);
+        $.post("/consumable/list", {c: dept}, function (result) {
+            for (let i = 0; i < result.length; i++) {
+                if (id == result[i].id) {
+                    $ca.value = result[i].amount;
+                    $number.innerHTML = result[i].number;
+                    $specification.innerHTML = result[i].specification;
+                    $measureUnit.innerHTML = result[i].measureUnit;
+                    $price.innerHTML = result[i].price;
+                }
+            }
+        });
+    });
+    var total;
+    $("input.consumableAmount").change(function () {
+        var ca = parseInt($(this).val());
+        var kprice = $(this).parent().parent().children()[8].firstElementChild;
+        var price = parseInt($(this).parent().parent().children()[6].children[0].innerHTML);
+        var available = parseInt($(this).parent().parent().children()[7].firstElementChild.value);
+        if (!available) {
+            Feng.error("请选择耗材后再输入数量");
+            $(this).val('');
+            return;
+        }
+        if (ca > available) {
+            Feng.error("库存耗材数量不足,请确认!");
+            $(this).val('');
+            kprice.value = ""
+        } else {
+            total = 0;
+            kprice.value = ca * price
+            for (var i = 0; i < $("input.consumableAmount").length; i++) {
+                var a = parseInt($("input.consumableAmount")[i].value)
+                if (a) {
+                    total += a
+                }
+            }
+            $("#count").val(total)
+        }
+        calcPrice($("#paymentMethod").val(), $('#membershipCard').val());
+    });
+    $(".delete-consumable").click(function () {
+        // Feng.confirm("是否删除该耗材?", new function () {
+        var a = parseInt($(this).parent().parent().children()[7].children[1].value);
+        total = total - a;
+        $("#count").val(total);
+        calcPrice($("#paymentMethod").val(), $('#membershipCard').val());
+        $(this).parent().parent().remove();
+        // });
+    });
+</script>
 @}

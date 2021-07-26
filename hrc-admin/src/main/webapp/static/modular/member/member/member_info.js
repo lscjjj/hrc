@@ -2,19 +2,19 @@
  * 初始化会员详情对话框
  */
 var MemberInfoDlg = {
-    memberInfoData : {}
+    memberInfoData: {}
 };
 
 /**
  * 清除数据
  */
-MemberInfoDlg.clearData = function() {
+MemberInfoDlg.clearData = function () {
     this.memberInfoData = {};
 }
 /**
  * 返回上一页
  */
-MemberInfoDlg.closeindexs = function (){
+MemberInfoDlg.closeindexs = function () {
     //当你在iframe页面关闭自身时
     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
     parent.layer.close(index); //再执行关闭
@@ -26,7 +26,7 @@ MemberInfoDlg.closeindexs = function (){
  * @param key 数据的名称
  * @param val 数据的具体值
  */
-MemberInfoDlg.set = function(key, val) {
+MemberInfoDlg.set = function (key, val) {
     this.memberInfoData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
     return this;
 }
@@ -37,87 +37,106 @@ MemberInfoDlg.set = function(key, val) {
  * @param key 数据的名称
  * @param val 数据的具体值
  */
-MemberInfoDlg.get = function(key) {
+MemberInfoDlg.get = function (key) {
     return $("#" + key).val();
 }
 
 /**
  * 关闭此对话框
  */
-MemberInfoDlg.close = function() {
+MemberInfoDlg.close = function () {
     parent.layer.close(window.parent.Member.layerIndex);
 }
 
 /**
  * 收集数据
  */
-MemberInfoDlg.collectData = function() {
+MemberInfoDlg.collectData = function () {
     this
-    .set('id')
-    .set('nickname')
-    .set('phone')
-    .set('realName')
-    .set('gender')
-    .set('wechat')
-    .set('wechatQRCode')
-    .set('birthday')
-    .set('age')
-    .set('idCard')
-    .set('avatar')
-    .set('height')
-    .set('weight')
-    .set('bloodType')
-    .set('chestCircumference')
-    .set('waistCircumference')
-    .set('hipCircumference')
-    .set('occupation')
-    .set('email')
-    .set('address')
-    .set('mailingAddress')
-    .set('maritalStatus')
-    .set('haveChildren')
-    .set('childrenGender')
-    .set('childrenBirthday')
-    .set('familyMember')
-    .set('favoriteColors')
-    .set('favoriteClothingStyle')
-    .set('favoriteFood')
-    .set('favoriteDrinking')
-    .set('favoriteMusic')
-    .set('hobby')
-    .set('preferredNursingTime')
-    .set('preferredContactMethod')
-    .set('preferredContactTime')
-    .set('customerServiceMemo')
-    .set('geneticDiseaseHistory')
-    .set('pastDiseaseHistory')
-    .set('pastTreatHistory')
-    .set('pastMedicineHistory')
-    .set('drugAllergyHistory')
-    .set('alcoholAllergy')
-    .set('existingSymptom')
-    .set('clinic')
-    .set('introducer');
+        .set('id')
+        .set('nickname')
+        .set('phone')
+        .set('realName')
+        .set('gender')
+        .set('wechat')
+        .set('wechatQRCode')
+        .set('birthday')
+        .set('age')
+        .set('idCard')
+        .set('avatar')
+        .set('height')
+        .set('weight')
+        .set('bloodType')
+        .set('chestCircumference')
+        .set('waistCircumference')
+        .set('hipCircumference')
+        .set('occupation')
+        .set('email')
+        .set('address')
+        .set('mailingAddress')
+        .set('maritalStatus')
+        .set('haveChildren')
+        .set('childrenGender')
+        .set('childrenBirthday')
+        .set('familyMember')
+        .set('favoriteColors')
+        .set('favoriteClothingStyle')
+        .set('favoriteFood')
+        .set('favoriteDrinking')
+        .set('favoriteMusic')
+        .set('hobby')
+        .set('preferredNursingTime')
+        .set('preferredContactMethod')
+        .set('preferredContactTime')
+        .set('customerServiceMemo')
+        .set('geneticDiseaseHistory')
+        .set('pastDiseaseHistory')
+        .set('pastTreatHistory')
+        .set('pastMedicineHistory')
+        .set('drugAllergyHistory')
+        .set('alcoholAllergy')
+        .set('existingSymptom')
+        .set('clinic')
+        .set('introducer');
 }
 
 /**
  * 提交添加
  */
-MemberInfoDlg.addSubmit = function() {
+MemberInfoDlg.addSubmit = function () {
 
     this.clearData();
     this.collectData();
 
     //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/member/add", function(data){
-        if(data.code!=200){
+    var ajax = new $ax(Feng.ctxPath + "/member/add", function (data) {
+        if ($("#realName").val() == "") {
+            Feng.error("真实姓名不能为空");
+            return;
+        }
+        if ($("#gender").val() == "") {
+            Feng.error("性别不能为空");
+            return;
+        }
+        if ($("#phone").val() == "") {
+            Feng.error("手机号码不能为空");
+            return;
+        }
+        // if($("#phone").val().length > 11){
+        //     Feng.error("请输入正确的手机号码格式");
+        //     return;
+        // }
+        if ($("#age").val() == "") {
+            Feng.error("年龄不能为空");
+            return;
+        }
+        if (data.code != 200) {
             Feng.alert(data.message);
             return;
         }
-            Feng.success("添加成功!");
-            window.parent.Member.table.refresh();
-            MemberInfoDlg.close();
-    },function(data){
+        Feng.success("添加成功!");
+        window.parent.Member.table.refresh();
+    }, function (data) {
         Feng.error("添加失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.memberInfoData);
@@ -127,28 +146,28 @@ MemberInfoDlg.addSubmit = function() {
 /**
  * 提交修改
  */
-MemberInfoDlg.editSubmit = function() {
+MemberInfoDlg.editSubmit = function () {
 
     this.clearData();
     this.collectData();
 
     //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/member/update", function(data){
-        if(data.code!=200){
+    var ajax = new $ax(Feng.ctxPath + "/member/update", function (data) {
+        if (data.code != 200) {
             Feng.alert(data.message);
             return;
         }
         Feng.success("修改成功!");
-        window.parent.Member.table.refresh();
         MemberInfoDlg.close();
-    },function(data){
+        window.parent.Member.table.refresh();
+    }, function (data) {
         Feng.error("修改失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.memberInfoData);
     ajax.start();
 }
 
-$(function() {
+$(function () {
     // 初始化字典
     $("#gender").val($("#genderValue").val());
     $("#bloodType").val($("#bloodTypeValue").val());
@@ -216,7 +235,7 @@ $(function() {
     });
     $("input#introducerValue").on("onSetSelectValue", function (event, result) {
         var mid = $('#id').val();
-        if(mid && mid.length>0 && result['id'] == $('#id').val()){
+        if (mid && mid.length > 0 && result['id'] == $('#id').val()) {
             Feng.alert("不能自我推荐哦");
             $('#introducerValue').val('');
             $('#introducer').val('');

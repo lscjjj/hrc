@@ -1,0 +1,8 @@
+com\cebrains\hrc\system\MenuTest.class
+com\cebrains\hrc\flowable\FlowableTest.class
+com\cebrains\hrc\system\UserTest.class
+com\cebrains\hrc\base\BaseJunit.class
+com\cebrains\hrc\flowable\CallExternalSystemDelegate.class
+com\cebrains\hrc\shiro\Base64Test.class
+com\cebrains\hrc\system\DeptTest.class
+com\cebrains\hrc\flowable\FlowableDbInitTest.class

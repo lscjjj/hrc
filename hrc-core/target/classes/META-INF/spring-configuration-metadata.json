@@ -33,7 +33,7 @@
     },
     {
       "sourceType": "com.cebrains.hrc.core.mutidatasource.config.MutiDataSourceProperties",
-      "defaultValue": "jdbc:mysql:\/\/mysql_serv:3306\/biz?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
+      "defaultValue": "jdbc:mysql:\/\/39.104.81.209:3306\/biz?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
       "name": "hrc.muti-datasource.url",
       "type": "java.lang.String"
     },
@@ -135,7 +135,7 @@
     },
     {
       "sourceType": "com.cebrains.hrc.core.datasource.DruidProperties",
-      "defaultValue": "jdbc:mysql:\/\/mysql_serv:3306\/hrc?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
+      "defaultValue": "jdbc:mysql:\/\/39.104.81.209:3306\/hrc?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull",
       "name": "spring.datasource.url",
       "type": "java.lang.String"
     },

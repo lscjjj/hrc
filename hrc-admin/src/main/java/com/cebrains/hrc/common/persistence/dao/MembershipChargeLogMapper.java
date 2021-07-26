@@ -29,6 +29,10 @@ public interface MembershipChargeLogMapper extends BaseMapper<MembershipChargeLo
             "on mcl.card=mc.id " +
             "inner join member m " +
             "on m.id = mc.user " +
-            "where m.clinic=#{depId} ORDER BY mcl.create_time desc")
+            "where m.clinic=#{depId} and mcl.delete_log = 1 ORDER BY mcl.create_time desc")
     List<MembershipChargeLog> selectThisDept(Integer depId);
+
+    List<MembershipChargeLog> selectLogList();
+
+    void deleteLog(Integer id);
 }

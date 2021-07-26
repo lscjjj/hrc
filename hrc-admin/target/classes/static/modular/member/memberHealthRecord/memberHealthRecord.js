@@ -138,7 +138,7 @@ $(function () {
             }
             len = json.length;
             for (i = 0; i < len; i++) {
-                data.value.push({"phone": json[i]['phone'], "name": json[i]['name']})
+                data.value.push({"phone": json[i]['phone'], "name": json[i]['realName']})
             }
             return data
         }

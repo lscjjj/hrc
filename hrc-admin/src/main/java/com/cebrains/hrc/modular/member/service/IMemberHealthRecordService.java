@@ -27,4 +27,5 @@ public interface IMemberHealthRecordService extends IService<MemberHealthRecord>
     List<Map<String,Object>> selectAllByDep(Integer depId);
 
     List<Map<String,Object>> selectAllToAdd();
+
 }

@@ -24,6 +24,8 @@ public interface MembershipCardMapper extends BaseMapper<MembershipCard> {
 
     void deductMoneyByTreatment(@Param("tid")Integer treatment, @Param("amount")Double paymentAmount);
 
+    void deductMoneyByMemberShipCard(@Param("membershipCard")Integer id,@Param("amount")Double paymentAmount);
+
     void deductMoneyByTransferCardConsumption(@Param("tid")String treatment, @Param("amount")Double paymentAmount);
 
     void moneyByTransferCardConsumption( @Param("tid")String treatment, @Param("amount")Double paymentAmount);

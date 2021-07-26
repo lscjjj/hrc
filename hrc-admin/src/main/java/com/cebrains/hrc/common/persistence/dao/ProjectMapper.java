@@ -17,4 +17,16 @@ import java.util.List;
 public interface ProjectMapper extends BaseMapper<Project> {
 
     List<Project> projectInformationByTreatment(@Param("tid") Integer treatment);
+
+    List<Project> selectPrice(Integer id);
+
+    List<Project> selectOne();
+
+    List<Project> selectTwo();
+
+    List<Project> selectThree();
+
+    List<Project> selectFour();
+
+    List<Project> selectFive();
 }

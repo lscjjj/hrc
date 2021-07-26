@@ -49,4 +49,5 @@ public class MemberHealthRecordServiceImpl extends ServiceImpl<MemberHealthRecor
     public List<Map<String, Object>> selectAllToAdd() {
         return memberHealthRecordMapper.selectAllToAdd();
     }
+
 }

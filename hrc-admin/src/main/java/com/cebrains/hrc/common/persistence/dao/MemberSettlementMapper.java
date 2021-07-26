@@ -25,6 +25,8 @@ public interface MemberSettlementMapper extends BaseMapper<MemberSettlement> {
 
     Integer queryMembershipBalanceByTreatmentId(@Param("tid")Integer treatment);
 
+    void deductMoneyByMemberShipCard(Integer id);
+
     List<MemberSettlement> selectByDepartment(@Param("did") Integer departmentId);
 
     List<Map<String,Object>> selectAllSettlement();

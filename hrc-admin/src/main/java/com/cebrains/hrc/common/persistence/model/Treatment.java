@@ -75,7 +75,6 @@ public class Treatment extends Model<Treatment> {
     @TableField(exist = false)
     private String statusName;
 
-
     public Integer getId() {
         return id;
     }

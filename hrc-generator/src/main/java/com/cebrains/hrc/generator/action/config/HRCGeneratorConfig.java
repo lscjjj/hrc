@@ -26,7 +26,7 @@ public class HRCGeneratorConfig extends AbstractGeneratorConfig {
         dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
         dataSourceConfig.setUsername("hrcu");
         dataSourceConfig.setPassword("go_range_1_2_3_4_5_6");
-        dataSourceConfig.setUrl("jdbc:mysql://mysql_serv:3306/adi_user_center?characterEncoding=utf8");
+        dataSourceConfig.setUrl("jdbc:mysql://39.104.81.209:3306/adi_user_center?characterEncoding=utf8");
     }
 
     protected void strategyConfig() {

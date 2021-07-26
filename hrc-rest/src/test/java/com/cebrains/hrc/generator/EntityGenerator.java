@@ -51,7 +51,7 @@ public class EntityGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("hrcu");
         dsc.setPassword("go_range_1_2_3_4_5_6");
-        dsc.setUrl("jdbc:mysql://mysql_serv:3306/hrc_rest?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://39.104.81.209:3306/hrc_rest?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置

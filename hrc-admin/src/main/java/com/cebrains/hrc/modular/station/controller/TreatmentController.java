@@ -64,6 +64,11 @@ public class TreatmentController extends BaseController {
     public String index() {
         return PREFIX + "treatment.html";
     }
+
+    @RequestMapping("/jump")
+    public String jumpIndex() {
+        return PREFIX + "treatment_add.html";
+    }
     /**
      * 跳转到康护记录首页
      */
@@ -267,13 +272,18 @@ public class TreatmentController extends BaseController {
             Consumable c = cs.get(i);
             consumableService.updateById(c);
         }
-        if (projects != null)
+
+        if (projects !=null){
+
             projects.forEach(p -> {
                 TreatmentDetail td = new TreatmentDetail();
                 td.setTreatmentId(treatment.getId());
                 td.setProjectId(p);
+                System.out.println(p);
                 treatmentDetailService.insert(td);
             });
+        }
+
 
         return super.SUCCESS_TIP;
     }

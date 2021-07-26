@@ -71,4 +71,39 @@ FROM member m
 WHERE mc.id = #{card}
     </select>
 
+    <select id="getPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT m.*
+        FROM member m
+        where m.phone = #{phone}
+    </select>
+
+    <select id="selectByClinic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from member m LEFT JOIN sys_dept s on m.clinic = s.id where m.clinic = #{clinic}
+    </select>
+
+    <select id="selectSuggestMemberList" parameterType="java.lang.String" resultType="java.util.Map">
+SELECT
+  m.id memberId,
+  m.real_name name,
+  m.id_card idCard,
+  m.phone     mobile,
+FROM member m
+WHERE m.real_name LIKE CONCAT('%',#{key},'%') OR m.phone LIKE CONCAT('%',#{key},'%')
+    </select>
+
+    <select id="selectByName" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT m.* FROM member m where m.real_name LIKE CONCAT('%',#{realName},'%') OR m.phone LIKE CONCAT('%',#{realName},'%') OR m.id_card LIKE CONCAT('%',#{realName},'%');
+    </select>
+
+    <select id="selectHealthRecordById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select m.* from member m where m.id = #{id}
+    </select>
+
+    <select id="selectByClinicHealth" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from member m LEFT JOIN sys_dept s on m.clinic = s.id where m.clinic = #{clinic}
+    </select>
+
+    <select id="selectAllNoBy" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from member
+    </select>
 </mapper>

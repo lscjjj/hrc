@@ -17,11 +17,12 @@
         <result column="solution" property="solution" />
         <result column="create_time" property="createTime" />
         <result column="flag" property="flag" />
+        <result column="sup" property="sup" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, category, treatment_course AS treatmentCourse, price_treatment_1 AS priceTreatment1, price_treatment_2 AS priceTreatment2, price_treatment_3 AS priceTreatment3, price_once_1 AS priceOnce1, price_once_2 AS priceOnce2, price_once_3 AS priceOnce3,solution, create_time AS createTime, flag
+        id, name, category, treatment_course AS treatmentCourse, price_treatment_1 AS priceTreatment1, price_treatment_2 AS priceTreatment2, price_treatment_3 AS priceTreatment3, price_once_1 AS priceOnce1, price_once_2 AS priceOnce2, price_once_3 AS priceOnce3,solution, create_time AS createTime, flag,sup
     </sql>
 
     <select id="projectInformationByTreatment" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,5 +31,29 @@ FROM project p
 WHERE exists(SELECT 1
              FROM treatment_detail td
              WHERE td.project_id IS NOT NULL AND td.treatment_id = #{tid} AND td.project_id = p.id)
+    </select>
+
+    <select id="selectPrice" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select p.name,p.price_once_1 from project p where p.id = #{id}
+    </select>
+
+    <select id="selectOne" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from project p left join project_sup ps on ps.id = p.sup where sup = 1
+    </select>
+
+    <select id="selectTwo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from project p left join project_sup ps on ps.id = p.sup where sup = 4
+    </select>
+
+    <select id="selectThree" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from project p left join project_sup ps on ps.id = p.sup where sup = 3
+    </select>
+
+    <select id="selectFour" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from project p left join project_sup ps on ps.id = p.sup where sup = 5
+    </select>
+
+    <select id="selectFive" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from project p left join project_sup ps on ps.id = p.sup where sup = 6
     </select>
 </mapper>

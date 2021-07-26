@@ -18,6 +18,7 @@ public interface IConstantFactory {
     String DICT_KEY_APPT = "预约类型";
     String DICT_KEY_MSC = "产品供应商类别";
     String DICT_KEY_GNDR = "性别";
+//    String DICT_KEY_OCCUPATION = "职业";
     String DICT_KEY_YON = "是否状态";
     String DICT_KEY_BLT = "血型";
     String DICT_KEY_PNT= "喜欢的护理时间";

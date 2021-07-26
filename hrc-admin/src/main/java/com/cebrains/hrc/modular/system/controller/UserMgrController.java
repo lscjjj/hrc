@@ -29,6 +29,7 @@ import com.cebrains.hrc.modular.system.factory.UserFactory;
 import com.cebrains.hrc.modular.system.transfer.UserDto;
 import com.cebrains.hrc.modular.system.warpper.UserWarpper;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -396,10 +397,12 @@ public class UserMgrController extends BaseController {
         String docName = UUID.randomUUID().toString()+"." + FilenameUtils.getExtension(doc.getOriginalFilename());
         try {
             String fileSavePath = hrcProperties.getFileUploadPath();
+            System.out.println(fileSavePath);
             File docFile = new File(fileSavePath,"doc");
             if(!docFile.exists()){
                 docFile.mkdirs();
             }
+
             doc.transferTo(new File(docFile +"/" + docName));
         } catch (Exception e) {
             throw new HRCException(BizExceptionEnum.UPLOAD_ERROR);

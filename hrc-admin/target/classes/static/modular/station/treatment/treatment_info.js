@@ -37,7 +37,7 @@ TreatmentInfoDlg.get = function(key) {
  * 关闭此对话框
  */
 TreatmentInfoDlg.close = function() {
-    parent.layer.close(window.parent.Treatment.layerIndex);
+    parent.layer.close(window.parent.Treatment ? window.parent.Treatment.layerIndex : window.parent.Member.layerIndex);
 }
 
 /**
@@ -146,7 +146,7 @@ TreatmentInfoDlg.addSubmit = function() {
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/treatment/add", function(data){
         Feng.success("添加成功!");
-        window.parent.Treatment.table.refresh();
+        // window.parent.Treatment.table.refresh();
         TreatmentInfoDlg.close();
     },function(data){
         Feng.error("添加失败!" + data.responseJSON.message + "!");

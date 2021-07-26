@@ -28,4 +28,15 @@ public class MembershipChargeLogServiceImpl extends ServiceImpl<MembershipCharge
     public List<MembershipChargeLog> selectThisDept(Integer depId) {
         return membershipChargeLogMapper.selectThisDept(depId);
     }
+
+    @Override
+    public List<MembershipChargeLog> selectLogList() {
+        return membershipChargeLogMapper.selectLogList();
+    }
+
+    @Override
+    public void deleteLog(Integer id) {
+        membershipChargeLogMapper.deleteLog(id);
+    }
+
 }

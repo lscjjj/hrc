@@ -75,22 +75,28 @@ public class MemberSettlementController extends BaseController {
         return PREFIX + "memberSettlement.html";
     }
 
+    @RequestMapping("/jump")
+    public String jumpIndex() {
+        return PREFIX + "memberSettlement.html";
+    }
+
     /**
      * 跳转到添加会员结算
      */
     @RequestMapping("/memberSettlement_add")
 //    @ResponseBody
-    public Object memberSettlementAdd(Model model,@RequestParam(value = "tid",required = false,defaultValue = "0")Integer treatmentId) {
-        model.addAttribute("tid","");
-        model.addAttribute("tval","");model.addAttribute("tproj","");
-        model.addAttribute("ttime",null);
-        if(treatmentId>0){
+    public Object memberSettlementAdd(Model model, @RequestParam(value = "tid", required = false, defaultValue = "0") Integer treatmentId) {
+        model.addAttribute("tid", "");
+        model.addAttribute("tval", "");
+        model.addAttribute("tproj", "");
+        model.addAttribute("ttime", null);
+        if (treatmentId > 0) {
             Treatment treatment = treatmentService.selectById(treatmentId);
-            if(treatment!=null){
-                model.addAttribute("tid",treatment.getId());
-                model.addAttribute("tval",ConstantFactory.me().getMemberName(treatment.getUserId()));
-                model.addAttribute("tproj",ConstantFactory.me().getProjectNamesByTreatment(treatment.getId()));
-                model.addAttribute("ttime",treatment.getCreateTime());
+            if (treatment != null) {
+                model.addAttribute("tid", treatment.getId());
+                model.addAttribute("tval", ConstantFactory.me().getMemberName(treatment.getUserId()));
+                model.addAttribute("tproj", ConstantFactory.me().getProjectNamesByTreatment(treatment.getId()));
+                model.addAttribute("ttime", treatment.getCreateTime());
             }
         }
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
@@ -99,12 +105,12 @@ public class MemberSettlementController extends BaseController {
         Wrapper<User> userWrapper = new EntityWrapper<>();
         userWrapper = userWrapper.eq("deptid", departmentId);
         List<User> users = userMapper.selectList(userWrapper);
-        model.addAttribute("users",users);
-        model.addAttribute("createdBy",shiroUser.getId());
-        if (dept != null && dept.getIsStore()!= null && dept.getIsStore() == 1) {
+        model.addAttribute("users", users);
+        model.addAttribute("createdBy", shiroUser.getId());
+        if (dept != null && dept.getIsStore() != null && dept.getIsStore() == 1) {
             model.addAttribute("departmentId", departmentId);
             model.addAttribute("departmentName", dept.getSimplename());
-        }else {
+        } else {
             return PREFIX + "404.html";
         }
         model.addAttribute("paymentMethodDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_PAYM));
@@ -131,31 +137,31 @@ public class MemberSettlementController extends BaseController {
     @ResponseBody
     public Object list(String condition) {
         List<MemberSettlement> memberSettlements = null;
-        if(ShiroKit.lacksPermission(IConstantFactory.PERMISSION_MEMBER_SETTLEMENT_LIST_OTHER_DEPT)){
+        if (ShiroKit.lacksPermission(IConstantFactory.PERMISSION_MEMBER_SETTLEMENT_LIST_OTHER_DEPT)) {
             ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
             Integer departmentId = shiroUser.getDeptId();
             memberSettlements = memberSettlementService.selectByDepartment(departmentId);
-        }else{
+        } else {
             ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
             Integer depId = shiroUser.getDeptId();
             Wrapper wrapper = new EntityWrapper<>();
-            if (shiroUser.roleList.contains(1)){
+            if (shiroUser.roleList.contains(1)) {
                 wrapper = wrapper.orderDesc(Collections.singletonList("create_time"));
                 memberSettlements = memberSettlementService.selectList(wrapper);
-            }else{
+            } else {
                 memberSettlements = memberSettlementService.selectByThisDepartment(depId);
             }
         }
         return new MemberSettlementWrapper(memberSettlements).wrap();
     }
 
-    @RequestMapping(value = {"/suggestList/{k}","/suggestList"})
+    @RequestMapping(value = {"/suggestList/{k}", "/suggestList"})
     @ResponseBody
-    public Object suggestList(@PathVariable(value = "k" , required = false) String k) {
+    public Object suggestList(@PathVariable(value = "k", required = false) String k) {
         List<Map<String, Object>> result = null;
 //        List<MembershipCard> membershipCardList = null;
         result = memberSettlementService.selectAllSettlement();
-        if (k != null){
+        if (k != null) {
             result = memberSettlementService.selectSettlementByName(k);
         }
 
@@ -167,31 +173,32 @@ public class MemberSettlementController extends BaseController {
      */
     @PostMapping(value = "/cardByTreatment")
     @ResponseBody
-    public Object cardByTreatment(@RequestParam String treatment,@RequestParam String member) {
+    public Object cardByTreatment(@RequestParam String treatment, @RequestParam String member) {
         Map<String, Object> result = new HashMap<>();
         Integer userId;
-        if(StringUtils.isNotEmpty(treatment)) {
+        if (StringUtils.isNotEmpty(treatment)) {
             Treatment t = treatmentService.selectById(Integer.valueOf(treatment));
             if (t == null) {
                 result.put("status", 0);
                 result.put("message", "找不到该用户");
                 return result;
             }
-            userId = t.getUserId();
-        }else{
-            userId=Integer.valueOf(member);
+//            userId = t.getUserId();
+            userId = Integer.valueOf(member);
+        } else {
+            userId = Integer.valueOf(member);
         }
 
-        List<MembershipCard> cardList = membershipCardService.selectList(new EntityWrapper<MembershipCard>().eq("user",userId ));
-        if(cardList==null || cardList.size()==0){
+        List<MembershipCard> cardList = membershipCardService.selectList(new EntityWrapper<MembershipCard>().eq("user", userId));
+        if (cardList == null || cardList.size() == 0) {
             result.put("status", 0);
             result.put("message", "该用户没有办理会员卡,请选择其他支付方式");
             return result;
         }
         List<KeyAndValueVo> cards = new ArrayList<>();
-        cardList.forEach(c-> cards.add(new KeyAndValueVo(c.getNumber(),String.valueOf(c.getId()))));
+        cardList.forEach(c -> cards.add(new KeyAndValueVo(c.getNumber(), String.valueOf(c.getId()))));
         result.put("status", 1);
-        result.put("data",cards);
+        result.put("data", cards);
         return result;
     }
 
@@ -209,18 +216,20 @@ public class MemberSettlementController extends BaseController {
         List<TreatmentDetail> tds = new ArrayList<>();
         // 判断是否已经结算
         Integer tid = memberSettlement.getTreatment();
-        if(tid!=null&&tid>=0){
+        if (tid != null && tid >= 0) {
 //            return new ErrorTip(404,"无此康护记录");
             int count = memberSettlementService.selectCount(new EntityWrapper<MemberSettlement>().eq("treatment", tid));
-            if(count>0){
-                return new ErrorTip(404,"已结算, 请勿重复结算");
+            if (count > 0) {
+                return new ErrorTip(404, "已结算, 请勿重复结算");
             }
         }
         // 产品
         List<Consumable> cs = new ArrayList<>();
-        if (StringUtils.isNotEmpty(consumable)) {
+        JSONArray ja = JSONArray.parseArray(consumable);
+        JSONObject jsonObject = (JSONObject) ja.get(0);
+        String id=(String) jsonObject.get("id");
+        if (StringUtils.isNotEmpty(id)) {
             try {
-                JSONArray ja = JSONArray.parseArray(consumable);
                 if (ja != null && ja.size() > 0)
                     for (int i = 0; i < ja.size(); i++) {
                         JSONObject jo = ja.getJSONObject(i);
@@ -240,74 +249,81 @@ public class MemberSettlementController extends BaseController {
                             }
                             c.setAmount(c.getAmount() - camount);
                             cs.add(c);
-                        }else {
+                        } else {
                             return new ErrorTip(200, "请正确选择使用耗材");
                         }
                     }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            return new ErrorTip(200, "请正确选择使用耗材");
         }
+//        else {
+//            return new ErrorTip(200, "请正确选择使用耗材");
+//        }
         Double price = memberSettlement.getPaymentAmount();
         Double tprice = memberSettlement.getTransferAmount();
         String tnumber = memberSettlement.getTransferCardConsumption();
 //        membershipCardService.deductMoneyByTransferCardConsumption( tnumber,tprice);
 //        membershipCardService.moneyByTransferCardConsumption(tnumber,tprice);
 
-        if(price <0){
-            return new ErrorTip(400,"结算金额不能为负数");
+        if (price < 0) {
+            return new ErrorTip(400, "结算金额不能为负数");
         }
+
         if (memberSettlement.getPaymentMethod() == 1) { //1会员卡
             Integer membershipCard = memberSettlement.getMembershipCard();
-            if(membershipCard==null||membershipCard<=0){
-                return new ErrorTip(400,"所选会员卡不正确");
+            if (membershipCard == null || membershipCard <= 0) {
+                return new ErrorTip(400, "所选会员卡不正确");
             }
             MembershipCard mc = membershipCardService.selectById(membershipCard);
-            if(mc==null){
-                return new ErrorTip(400,"找不到会员卡信息");
+            if (mc == null) {
+                return new ErrorTip(400, "找不到会员卡信息");
             }
 
 //            Integer balance = memberSettlementService.queryMembershipBalanceByTreatmentId(memberSettlement.getTreatment());
-            if (memberSettlement.getTransferCardConsumption()!= null && memberSettlement.getTransferCardConsumption().length()>0){
-                MembershipCard tmc = membershipCardService.selectOne(new EntityWrapper<MembershipCard>().eq("number",memberSettlement.getTransferCardConsumption()));
-                if (tmc == null){
-                    return new ErrorTip(400,"找不到转卡会员卡信息");
+            if (memberSettlement.getTransferCardConsumption() != null && memberSettlement.getTransferCardConsumption().length() > 0) {
+                MembershipCard tmc = membershipCardService.selectOne(new EntityWrapper<MembershipCard>().eq("number", memberSettlement.getTransferCardConsumption()));
+                if (tmc == null) {
+                    return new ErrorTip(400, "找不到转卡会员卡信息");
                 }
-                if (tmc.getBalance()!=null && tmc.getBalance()>=0 && tmc.getBalance()>= price){
-                    membershipCardService.deductMoneyByTransferCardConsumption( tnumber,tprice);
-                    membershipCardService.moneyByTransferCardConsumption(mc.getNumber(),tprice);
-                }else {
-                    return new ErrorTip(400,"转卡消费失败，您的转卡会员卡余额不足,请充值!");
+                if (tmc.getBalance() != null && tmc.getBalance() >= 0 && tmc.getBalance() >= price) {
+                    membershipCardService.deductMoneyByTransferCardConsumption(tnumber, tprice);
+                    membershipCardService.moneyByTransferCardConsumption(mc.getNumber(), tprice);
+                } else {
+                    return new ErrorTip(400, "转卡消费失败，您的转卡会员卡余额不足,请充值!");
                 }
 
             }
             MembershipCard mcc = membershipCardService.selectById(membershipCard);
             Double balance = mcc.getBalance();
-            if (balance !=null && balance >= 0 && balance >= price) {
+            if (balance != null && balance >= 0 && balance >= price) {
                 memberSettlementService.insert(memberSettlement);
-                membershipCardService.deductMoney(tid, price);
+//                if(tid == null){
+//                    membershipCardService.deductMoneyByMemberShipCard(membershipCard,price);
+//                }else{
+//                    membershipCardService.deductMoney(tid, price);
+                membershipCardService.deductMoneyByMemberShipCard(membershipCard, price);
+//                }
                 Treatment treatment = new Treatment();
                 treatment.setId(tid);
                 treatment.setStatus(3); // 已结算
                 treatmentService.updateById(treatment);
-            }else{
-                return new ErrorTip(400,"您的会员卡余额不足,请充值!");
+            } else {
+                return new ErrorTip(400, "您的会员卡余额不足,请充值!");
             }
-        }else{
+        } else {
             memberSettlementService.insert(memberSettlement);
             Treatment treatment = new Treatment();
             treatment.setId(tid);
             treatment.setStatus(3); // 已结算
             treatmentService.updateById(treatment);
         }
-        for(int i=0;i<tds.size();i++){
+        for (int i = 0; i < tds.size(); i++) {
             TreatmentDetail td = tds.get(i);
             td.setSettlement(memberSettlement.getId());
             treatmentDetailService.insert(td);
         }
-        for(int i=0;i<cs.size();i++){
+        for (int i = 0; i < cs.size(); i++) {
             Consumable c = cs.get(i);
             consumableService.updateById(c);
         }
@@ -331,8 +347,8 @@ public class MemberSettlementController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(MemberSettlement memberSettlement) {
-        if(memberSettlement.getPaymentAmount()<0)
-            return new ErrorTip(200,"结算金额不能为负数");
+        if (memberSettlement.getPaymentAmount() < 0)
+            return new ErrorTip(200, "结算金额不能为负数");
         memberSettlementService.updateById(memberSettlement);
         return super.SUCCESS_TIP;
     }
@@ -362,7 +378,7 @@ public class MemberSettlementController extends BaseController {
      */
     @PostMapping(value = "/calcPrice")
     @ResponseBody
-    public Object calcPrice(@RequestParam Integer treatment,@RequestParam Integer member, @RequestParam Integer paymentMethod, @RequestParam(required = false) Integer membershipCard,String consumable) {
+    public Object calcPrice(@RequestParam Integer treatment, @RequestParam Integer member, @RequestParam Integer paymentMethod, @RequestParam(required = false) Integer membershipCard, String consumable) {
         Wrapper<MemberSettlement> wrapper = new EntityWrapper<>();
         wrapper = wrapper.eq("treatment", treatment);
         Map<String, Object> result = new HashMap<>();
@@ -374,14 +390,14 @@ public class MemberSettlementController extends BaseController {
         }
 
         double pprice = 0;
-        try{
+        try {
             JSONArray ja = JSONArray.parseArray(consumable);
             if (ja != null && ja.size() > 0)
                 for (int i = 0; i < ja.size(); i++) {
                     JSONObject jo = ja.getJSONObject(i);
-                    pprice +=consumableService.selectById(jo.getInteger("id")).getPrice()*jo.getInteger("amount");
+                    pprice += consumableService.selectById(jo.getInteger("id")).getPrice() * jo.getInteger("amount");
                 }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             result.put("status", 0);
             result.put("message", "请正确填写结算产品信息！");
@@ -402,22 +418,22 @@ public class MemberSettlementController extends BaseController {
                 }
                 break;
             case 1: // 会员卡
-                if(membershipCard==null||membershipCard<=0){
+                if (membershipCard == null || membershipCard <= 0) {
                     result.put("status", 0);
                     result.put("message", "所选会员卡不正确");
                     return result;
                 }
                 MembershipCard mc = membershipCardService.selectById(membershipCard);
-                if(mc==null){
+                if (mc == null) {
                     result.put("status", 0);
                     result.put("message", "找不到会员卡信息");
                     return result;
                 }
                 List<Map<String, Object>> priceInfo = memberSettlementService.treatmentPriceInformation(treatment);
                 double price = 0;
-                if (priceInfo != null && priceInfo.size()>0) {
+                if (priceInfo != null && priceInfo.size() > 0) {
 //                    result.put("status", 0);
-//                    result.put("message", "找不到会员卡信息");
+                    result.put("message", "找不到会员卡信息");
 //                    return result;
 
                     Integer discount = (Integer) priceInfo.get(0).get("discount");
@@ -425,28 +441,28 @@ public class MemberSettlementController extends BaseController {
                     price = projects.stream().mapToDouble(p -> priceByInfo(p, discount, pstd)).sum();
                 }
                 Double balance = mc.getBalance();
-                if (balance ==null || balance < (price+pprice)) {
-                    result.put("message","温馨提示: 会员卡余额不足!");
+                if (balance == null || balance < (price + pprice)) {
+                    result.put("message", "温馨提示: 会员卡余额不足!");
                 }
                 result.put("status", 1);
-                result.put("kfprice",price); //康复项目的金额
-                result.put("kprice",pprice); //康复产品
-                result.put("price", (price+pprice)); //总金额
+                result.put("kfprice", price); //康复项目的金额
+                result.put("kprice", pprice); //康复产品
+                result.put("price", (price + pprice)); //总金额
                 break;
             default:    // 其他
-                List<Map<String, Object>> priceInfoE = memberSettlementService.treatmentPriceInformation(treatment);
-                if (priceInfoE == null || priceInfoE.size()==0) {
-                    result.put("status", 0);
-                    result.put("message", "找不到会员卡信息");
-                    return result;
-                }
-                Integer discountE = (Integer) priceInfoE.get(0).get("discount");
-                Integer pstdE = (Integer) priceInfoE.get(0).get("pstd");
+//                List<Map<String, Object>> priceInfoE = memberSettlementService.treatmentPriceInformation(treatment);
+//                if (priceInfoE == null || priceInfoE.size() == 0) {
+//                    result.put("status", 0);
+//                    result.put("message", "找不到会员卡信息");
+//                    return result;
+//                }
+                Integer discountE = 100;
+                Integer pstdE = 1;
                 double priceE = projects.stream().mapToDouble(p -> priceByInfo(p, discountE, pstdE)).sum();
                 result.put("status", 1);
-                result.put("kfprice",priceE); //康复项目的金额
-                result.put("kprice",pprice); //康复产品
-                result.put("price", priceE+pprice);
+                result.put("kfprice", priceE); //康复项目的金额
+                result.put("kprice", pprice); //康复产品
+                result.put("price", priceE + pprice);
                 break;
         }
         return result;

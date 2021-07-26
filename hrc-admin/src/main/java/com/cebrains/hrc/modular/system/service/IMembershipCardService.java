@@ -22,6 +22,8 @@ public interface IMembershipCardService extends IService<MembershipCard> {
 
     void deductMoney(Integer treatment, Double paymentAmount);
 
+    void deductMoneyByMemberShipCard(Integer id,Double paymentAmount);
+
     void deductMoneyByTransferCardConsumption(String treatment, Double paymentAmount);
 
     void moneyByTransferCardConsumption(String treatment, Double paymentAmount);

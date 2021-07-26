@@ -42,4 +42,5 @@ public interface MemberHealthRecordMapper extends BaseMapper<MemberHealthRecord>
 
     List<Map<String,Object>> selectAllToAdd();
 
+
 }

@@ -47,6 +47,11 @@ public class MembershipChargeLog extends Model<MembershipChargeLog> {
      */
     @TableField("given_amount")
     private Double givenAmount;
+    /**
+     * 删除标识
+     */
+    @TableField("delete_log")
+    private Double deleteLog;
     private String memo;
     private Integer created;
     @TableField("create_time")
@@ -211,6 +216,14 @@ public class MembershipChargeLog extends Model<MembershipChargeLog> {
 
     public void setGivenAmount(Double givenAmount) {
         this.givenAmount = givenAmount;
+    }
+
+    public Double getDeleteLog() {
+        return deleteLog;
+    }
+
+    public void setDeleteLog(Double deleteLog) {
+        this.deleteLog = deleteLog;
     }
 
     public String getMemo() {

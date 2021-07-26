@@ -27,6 +27,22 @@ Project.initColumn = function () {
             {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
     ];
 };
+//
+// window.onload = function(){
+//     if(projectCategory == 16){
+//         return row.gender == "健康工程管理";
+//     }else if(projectCategory == 15){
+//         return row.gender == "精准调理";
+//     }else if(projectCategory == 14){
+//         return row.gender == "净化调理";
+//     }else if(projectCategory == 13){
+//         return row.gender == "排异调理";
+//     }else if(projectCategory == 12){
+//         return row.gender == "深度调理";
+//     }else if(projectCategory == 11){
+//         return row.gender == "基本调理";
+//     }
+// }
 
 /**
  * 检查是否选中

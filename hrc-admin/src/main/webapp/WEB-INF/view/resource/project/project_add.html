@@ -7,22 +7,39 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="name" name="项目名称" underline="true"/>
-                            <#select id="category" name="项目类别" underline="true">
-                                @for(dict in projectCategories){
-                                <option value="${dict.num}">${dict.name}</option>
-                                @}
-                            </#select>
-                            <#input id="treatmentCourse" name="疗程次数" underline="true"/>
-                            <#input id="priceTreatment1" name="一线疗程价格" underline="true"/>
-                            <#input id="priceTreatment2" name="二线疗程价格" />
+                    <#input id="name" name="项目名称" underline="true"/>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">项目类别</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="category" name="category">
+                                <option value="1">皮肤健康</option>
+                                <option value="2">骨伤健康</option>
+                                <option value="3">视力健康</option>
+                                <option value="4">美容塑形健康</option>
+                                <option value="5">脾胃健康</option>
+                                <option value="6">五官健康</option>
+                                <option value="7">男女生殖健康</option>
+                                <option value="8">亚健康管理</option>
+                                <option value="9">老慢病健康管理</option>
+                                <option value="11">基本调理</option>
+                                <option value="12">深度调理</option>
+                                <option value="13">排异调理</option>
+                                <option value="14">净化调理</option>
+                                <option value="15">精准调理</option>
+                                <option value="16">健康工程管理</option>
+                            </select>
+                        </div>
+                    </div>
+                    <#input id="treatmentCourse" name="疗程次数" underline="true"/>
+                    <#input id="priceTreatment1" name="一线疗程价格" underline="true"/>
+                    <#input id="priceTreatment2" name="二线疗程价格" />
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="priceTreatment3" name="三线疗程价格" underline="true"/>
-                            <#input id="priceOnce1" name="一线单次价格" underline="true"/>
-                            <#input id="priceOnce2" name="二线单次价格" underline="true"/>
-                            <#input id="priceOnce3" name="三线单次价格" underline="true"/>
+                    <#input id="priceTreatment3" name="三线疗程价格" underline="true"/>
+                    <#input id="priceOnce1" name="一线单次价格" underline="true"/>
+                    <#input id="priceOnce2" name="二线单次价格" underline="true"/>
+                    <#input id="priceOnce3" name="三线单次价格" underline="true"/>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">疗法方案</label><br/><br/>
                         <div class="col-sm-12">

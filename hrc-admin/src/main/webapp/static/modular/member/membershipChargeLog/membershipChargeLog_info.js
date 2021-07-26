@@ -25,13 +25,25 @@ MembershipChargeLogInfoDlg.initColumn = function () {
         {title: '建档门店', field: 'departmentName', visible: true, align: 'center', valign: 'middle'},
         {title: '建档时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
         {title: '建档人员', field: 'createdName', visible: true, align: 'center', valign: 'middle'},
+        {
+            title: '操作',
+            field: 'op',
+            visible: true,
+            align: 'center',
+            valign: 'middle',
+            formatter: function (value, row) {
+                return [
+                    '<button class="btn detail"  onclick="MembershipChargeLogInfoDlg.delete(\'' + row.id + '\')">删除</button>',
+                ].join('');
+            }
+        },
     ];
 };
 
 /**
  * 清除数据
  */
-MembershipChargeLogInfoDlg.clearData = function() {
+MembershipChargeLogInfoDlg.clearData = function () {
     this.membershipChargeLogInfoData = {};
 }
 
@@ -41,7 +53,7 @@ MembershipChargeLogInfoDlg.clearData = function() {
  * @param key 数据的名称
  * @param val 数据的具体值
  */
-MembershipChargeLogInfoDlg.set = function(key, val) {
+MembershipChargeLogInfoDlg.set = function (key, val) {
     this.membershipChargeLogInfoData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
     return this;
 }
@@ -52,52 +64,52 @@ MembershipChargeLogInfoDlg.set = function(key, val) {
  * @param key 数据的名称
  * @param val 数据的具体值
  */
-MembershipChargeLogInfoDlg.get = function(key) {
+MembershipChargeLogInfoDlg.get = function (key) {
     return $("#" + key).val();
 }
 
 /**
  * 关闭此对话框
  */
-MembershipChargeLogInfoDlg.close = function() {
-    parent.layer.close(window.parent.MembershipChargeLog.layerIndex);
+MembershipChargeLogInfoDlg.close = function () {
+    parent.layer.close(window.parent.MembershipChargeLog ? window.parent.MembershipChargeLog.layerIndex : window.parent.Member.layerIndex);
 }
 
 /**
  * 收集数据
  */
-MembershipChargeLogInfoDlg.collectData = function() {
+MembershipChargeLogInfoDlg.collectData = function () {
     this
-    .set('id')
-    .set('card')
-    .set('amount')
-    .set('givenAmount')
-    .set('department')
-    .set('created')
-    .set('memo')
-    .set('createTime')
-    .set('flag');
+        .set('id')
+        .set('card')
+        .set('amount')
+        .set('givenAmount')
+        .set('department')
+        .set('created')
+        .set('memo')
+        .set('createTime')
+        .set('flag');
 }
 
 /**
  * 提交添加
  */
-MembershipChargeLogInfoDlg.addSubmit = function() {
+MembershipChargeLogInfoDlg.addSubmit = function () {
 
     this.clearData();
     this.collectData();
 
     //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/membershipChargeLog/add", function(result){
-        if(result && result.code!=200){
+    var ajax = new $ax(Feng.ctxPath + "/membershipChargeLog/add", function (result) {
+        if (result && result.code != 200) {
             Feng.error(result.message);
-        }else {
+        } else {
             Feng.success("添加成功!");
             window.parent.MembershipChargeLog.table.refresh();
             window.MembershipChargeLogInfoDlg.table.refresh();
             MembershipChargeLogInfoDlg.search();
         }
-    },function(data){
+    }, function (data) {
         Feng.error("添加失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.membershipChargeLogInfoData);
@@ -107,26 +119,28 @@ MembershipChargeLogInfoDlg.addSubmit = function() {
 /**
  * 返回上一页
  */
-MembershipChargeLogInfoDlg.closeindexs = function (){
-    //当你在iframe页面关闭自身时
-    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-    parent.layer.close(index); //再执行关闭
+// MembershipChargeLogInfoDlg.closeindexs = function () {
+//     //当你在iframe页面关闭自身时
+//     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+//     parent.layer.close(index); //再执行关闭
+// }
+function jump(){
+    MembershipChargeLogInfoDlg.close();
 }
-
 /**
  * 提交修改
  */
-MembershipChargeLogInfoDlg.editSubmit = function() {
+MembershipChargeLogInfoDlg.editSubmit = function () {
 
     this.clearData();
     this.collectData();
 
     //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/membershipChargeLog/update", function(data){
+    var ajax = new $ax(Feng.ctxPath + "/membershipChargeLog/update", function (data) {
         Feng.success("修改成功!");
         window.parent.MembershipChargeLog.table.refresh();
         MembershipChargeLogInfoDlg.close();
-    },function(data){
+    }, function (data) {
         Feng.error("修改失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.membershipChargeLogInfoData);
@@ -151,18 +165,34 @@ MembershipChargeLogInfoDlg.openAddMembershipCard = function (arr) {
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
-        content: Feng.ctxPath + '/membershipCard/membershipCard_add#'+ arr[2] + '&' + arr[3]
+        content: Feng.ctxPath + '/membershipCard/membershipCard_add#' + arr[2] + '&' + arr[3]
     });
     parent.layerIndex = index;
 };
 
-MembershipChargeLogInfoDlg.closeindexs = function ()
-{
-    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-    parent.layer.close(index); //再执行关闭
+/**
+ * 删除会员记录
+ */
+MembershipChargeLogInfoDlg.delete = function (id) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/membershipChargeLog/deleteByLog?id=" + id, function (data) {
+                if (data.code == 200) {
+                    Feng.success("删除成功!");
+                    MembershipChargeLogInfoDlg.table.refresh();
+                } else {
+                    Feng.alert(data.message);
+                    return;
+                }
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("id", id);
+            ajax.start();
+        }
+        Feng.confirm("是否删除该会员记录?", operation);
 };
 
-$(function() {
+$(function () {
 
     var defaultColunms = MembershipChargeLogInfoDlg.initColumn();
     var table = new BSTable(MembershipChargeLogInfoDlg.id, "/membershipChargeLog/list", defaultColunms);
@@ -177,7 +207,15 @@ $(function() {
         multiWord: true,
         separator: ",",
         getDataMethod: "url",
-        effectiveFieldsAlias: {id: "编号",number: "卡号", memberId:"会员id",name: "姓名", mobile: "手机号", idCard: "身份证",balance: "充值卡金额"},
+        effectiveFieldsAlias: {
+            id: "编号",
+            number: "卡号",
+            memberId: "会员id",
+            name: "姓名",
+            mobile: "手机号",
+            idCard: "身份证",
+            balance: "充值卡金额"
+        },
         showHeader: true,
         url: "/membershipCard/suggestList/",
         processData: function (json) {
@@ -187,13 +225,21 @@ $(function() {
             }
             len = json.length;
             for (i = 0; i < len; i++) {
-                if (json[i]['id'] == "" || json[i]['id'] == null){
+                if (json[i]['id'] == "" || json[i]['id'] == null) {
                     json[i]['id'] = "暂未添加";
                 }
-                if (json[i]['number'] == "" || json[i]['number'] == null){
+                if (json[i]['number'] == "" || json[i]['number'] == null) {
                     json[i]['number'] = "暂未添加";
                 }
-                data.value.push({"id": json[i]['id'],"number": json[i]['number'], "memberId": json[i]['memberId'],"name": json[i]['name'], "mobile": json[i]['mobile'], "idCard": json[i]['idCard'],"balance": json[i]['balance']})
+                data.value.push({
+                    "id": json[i]['id'],
+                    "number": json[i]['number'],
+                    "memberId": json[i]['memberId'],
+                    "name": json[i]['name'],
+                    "mobile": json[i]['mobile'],
+                    "idCard": json[i]['idCard'],
+                    "balance": json[i]['balance']
+                })
             }
             return data
         }
@@ -204,8 +250,7 @@ $(function() {
     $("input#cardName").on("onSetSelectValue", function (event, result) {
         $('#card').val(result['id']);
         var arr = [];
-        for(var i=0;i<$('.jhover').children().length;i++)
-        {
+        for (var i = 0; i < $('.jhover').children().length; i++) {
             arr[i] = $($('.jhover').children()[i]).text();
         }
         $('#Identitycard').val(arr[5]);
@@ -214,8 +259,7 @@ $(function() {
         $('#cardName').val(arr[3]);
         $('#balance').val(arr[6]);
 
-        if($('#cardValue').val() == '暂未添加')
-        {
+        if ($('#cardValue').val() == '暂未添加') {
             MembershipChargeLogInfoDlg.openAddMembershipCard(arr);
         }
         MembershipChargeLogInfoDlg.search();
@@ -223,31 +267,31 @@ $(function() {
 
     $("#created").val($('#userId').val());
     $("#department").val($('#departmentId').val());
-    $("#department").change(function(){
-        $.post("/mgr/userByDepartment",{dept:$("#department").val()},function(result){
+    $("#department").change(function () {
+        $.post("/mgr/userByDepartment", {dept: $("#department").val()}, function (result) {
             $('#created').empty();
-            $.each(result,function(i,dt){
-            $('#created').append($('<option>').val(dt.value).text(dt.key));
+            $.each(result, function (i, dt) {
+                $('#created').append($('<option>').val(dt.value).text(dt.key));
+            });
         });
-    });
     });
 
     $("#btn-add-membership-card").click(function () {
         MembershipChargeLogInfoDlg.openAddMembershipCard();
     });
 
-    $('#amount').on('input',function(){
+    $('#amount').on('input', function () {
         var amount = $(this).val();
         var membershipCard = $('#card').val();
-        if(parseFloat(amount)>0 && parseInt(membershipCard)>0) {
+        if (parseFloat(amount) > 0 && parseInt(membershipCard) > 0) {
             $.post("/membershipChargeLog/chargePresent", {
                 amount: amount,
                 membershipCard: membershipCard
             }, function (result) {
                 if (result.code == 200) {
                     var dr = '';
-                    if(result.data.level)
-                        dr = "充值后金额为["+result.data.balance+"],等级为["+result.data.level+"], 赠送["+result.data.present+"]元"
+                    if (result.data.level)
+                        dr = "充值后金额为[" + result.data.balance + "],等级为[" + result.data.level + "], 赠送[" + result.data.present + "]元"
                     $('#chargeTip').text(dr);
                 } else {
                     Feng.info(result.message);
@@ -256,28 +300,26 @@ $(function() {
         }
     });
 
-    $('#cardName').keydown(function (event){
-        if(event.keyCode == 8)
-        {
+    $('#cardName').keydown(function (event) {
+        if (event.keyCode == 8) {
             $('#Identitycard').val('');
             $('#Telephone').val('');
             $('#cardValue').val('');
             $('#balance').val('');
         }
     });
-    var now=new Date();
-    var year=now.getFullYear();
-    var month=now.getMonth();
-    var day=now.getDate();
-    var hours=now.getHours();
-    var minutes=now.getMinutes();
-    var seconds=now.getSeconds();
-    $('#givenalotxianmu').val(""+year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds+"");
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth();
+    var day = now.getDate();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    $('#givenalotxianmu').val("" + year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "");
 });
-$("#cardName").on('click',function (){
+$("#cardName").on('click', function () {
     $relute = $('#cardName').val();
-    if($relute == ' ' || $relute == ''){
+    if ($relute == ' ' || $relute == '') {
         $('#cardName').val(' ');
     }
 });
-

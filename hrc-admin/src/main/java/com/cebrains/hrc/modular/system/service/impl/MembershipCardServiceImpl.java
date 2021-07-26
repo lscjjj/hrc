@@ -35,6 +35,11 @@ public class MembershipCardServiceImpl extends ServiceImpl<MembershipCardMapper,
     }
 
     @Override
+    public void deductMoneyByMemberShipCard(Integer id,Double paymentAmount) {
+        membershipCardMapper.deductMoneyByMemberShipCard(id,paymentAmount);
+    }
+
+    @Override
     public void deductMoneyByTransferCardConsumption(String treatment, Double paymentAmount ) {
         membershipCardMapper.deductMoneyByTransferCardConsumption(treatment,paymentAmount);
     }

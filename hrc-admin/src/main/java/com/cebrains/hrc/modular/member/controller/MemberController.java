@@ -6,18 +6,20 @@ import com.cebrains.hrc.common.constant.factory.ConstantFactory;
 import com.cebrains.hrc.common.constant.factory.IConstantFactory;
 import com.cebrains.hrc.common.persistence.dao.DeptMapper;
 import com.cebrains.hrc.common.persistence.model.Dept;
+import com.cebrains.hrc.common.persistence.model.History;
 import com.cebrains.hrc.common.persistence.model.Member;
-import com.cebrains.hrc.common.persistence.model.MemberFamily;
 import com.cebrains.hrc.common.persistence.vo.MemberSuggestVo;
 import com.cebrains.hrc.core.base.controller.BaseController;
 import com.cebrains.hrc.core.base.tips.ErrorTip;
 import com.cebrains.hrc.core.log.LogObjectHolder;
 import com.cebrains.hrc.core.shiro.ShiroKit;
 import com.cebrains.hrc.core.shiro.ShiroUser;
+import com.cebrains.hrc.modular.member.service.IHistoryService;
 import com.cebrains.hrc.modular.member.service.IMemberService;
+import com.cebrains.hrc.modular.resource.wrapper.HistoryWrapper;
 import com.cebrains.hrc.modular.resource.wrapper.MemberWrapper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
+import org.apache.velocity.runtime.directive.Foreach;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +49,9 @@ public class MemberController extends BaseController {
     private IMemberService memberService;
 
     @Autowired
+    private IHistoryService historyService;
+
+    @Autowired
     private DeptMapper deptMapper;
 
     /**
@@ -63,6 +69,7 @@ public class MemberController extends BaseController {
     public String memberAdd(Model model) {
         model.addAttribute("genderDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_GNDR));
         model.addAttribute("bloodTypeDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_BLT));
+//        model.addAttribute("occupationDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_OCCUPATION));
         model.addAttribute("maritalStatusDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_MST));
         model.addAttribute("yesOrNoDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_YON));
         model.addAttribute("preferredNursingTimeDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_PNT));
@@ -70,7 +77,7 @@ public class MemberController extends BaseController {
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
         Integer departmentId = shiroUser.getDeptId();
         Dept dept = deptMapper.selectById(departmentId);
-        if(dept.getIsStore()!=null && dept.getIsStore()==1) {
+        if(dept != null && dept.getIsStore()!=null && dept.getIsStore()==1) {
             model.addAttribute("department", dept.getId());
             model.addAttribute("departmentName", dept.getSimplename());
             model.addAttribute("fixedDept",1);
@@ -80,6 +87,14 @@ public class MemberController extends BaseController {
             model.addAttribute("fixedDept",0);
         }
         return PREFIX + "member_add.html";
+    }
+
+    /**
+     * 跳转到修改会员列表首页
+     */
+    @RequestMapping("/history_list/{id}")
+    public Object history(@PathVariable Integer id) {
+        return PREFIX + "history.html";
     }
 
     /**
@@ -93,6 +108,7 @@ public class MemberController extends BaseController {
         model.addAttribute("item",member);
         model.addAttribute("genderDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_GNDR));
         model.addAttribute("bloodTypeDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_BLT));
+//        model.addAttribute("occupationDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_OCCUPATION));
         model.addAttribute("maritalStatusDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_MST));
         model.addAttribute("yesOrNoDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_YON));
         model.addAttribute("preferredNursingTimeDict", ConstantFactory.me().findDictByKey(IConstantFactory.DICT_KEY_PNT));
@@ -100,13 +116,14 @@ public class MemberController extends BaseController {
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
         Integer departmentId = shiroUser.getDeptId();
         Dept dept = deptMapper.selectById(departmentId);
-        if(dept.getIsStore()!=null && dept.getIsStore()==1) {
+        if(dept != null && dept.getIsStore()!=null && dept.getIsStore()==1) {
             model.addAttribute("fixedDept",1);
         }else{
             model.addAttribute("fixedDept",0);
         }
         LogObjectHolder.me().set(member);
         return PREFIX + "member_edit.html";
+
     }
 
     /**
@@ -131,6 +148,16 @@ public class MemberController extends BaseController {
     }
 
     /**
+     * 获取修改会员历史列表
+     */
+    @RequestMapping(value = "/update_history_list/{id}")
+    @ResponseBody
+      public Object historyList(@PathVariable Integer id){
+        List<History> histories = historyService.selectList(id);
+        return new HistoryWrapper(histories).wrap();
+    }
+
+    /**
      * 获取会员信息
      */
     @RequestMapping(value = "/infoById")
@@ -149,11 +176,22 @@ public class MemberController extends BaseController {
         List<MemberSuggestVo> result = new ArrayList<>();
         Wrapper<Member> wrapper = new EntityWrapper<>();
         wrapper = wrapper.like("real_name", "%"+k+"%");
-        List<Member> members = null;
-            members = memberService.selectList(null);
-            if (k!=null){
-                members = memberService.selectList(wrapper);
-            }
+//        List<Member> members = null;
+//            members = memberService.selectList(null);
+//            if (k!=null){
+//                members = memberService.selectList(wrapper);
+//            }
+        ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
+        Integer depId = shiroUser.deptId;
+        List<Member> members =null;
+        if(shiroUser.roleList.contains(1)){      //只有超级管理员才能看到所有会员信息
+            members = memberService.selectList(new EntityWrapper<Member>()
+                    .orderDesc(Collections.singletonList("create_time")));
+        }else{
+            members = memberService.selectList(new EntityWrapper<Member>()
+                    .eq("clinic",depId)
+                    .orderDesc(Collections.singletonList("create_time")));
+        }
         if(members!=null){
             members.forEach(m -> result.add(new MemberSuggestVo(m.getId(),m.getRealName(),m.getPhone(), m.getIdCard())));
         }
@@ -177,14 +215,26 @@ public class MemberController extends BaseController {
     }
 
     /**
+     * 根据名字模糊查询信息
+     */
+    @RequestMapping(value = "/selectByName")
+    @ResponseBody
+    public Object selectByName(String realName){
+        List<Member> members = null;
+        members = memberService.selectByName(realName);
+        return members;
+    }
+
+    /**
      * 新增会员
      */
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(Member member) {
-        boolean memberExists = memberService.selectCount(new EntityWrapper<Member>().eq("phone", member.getPhone()).or().eq("id_card", member.getIdCard()))>0;
+//        boolean memberExists = memberService.selectCount(new EntityWrapper<Member>().eq("phone", member.getPhone()).or().eq("id_card", member.getIdCard()))>0;
+        boolean memberExists = memberService.selectCount(new EntityWrapper<Member>().eq("phone", member.getPhone()))>0;
         if(memberExists)
-            return new ErrorTip(400,"电话号码或身份证号已注册");
+            return new ErrorTip(400,"电话号码已注册");
         member.setCreatedBy(((ShiroUser) getSession().getAttribute("shiroUser")).getId());
         memberService.insert(member);
         return super.SUCCESS_TIP;
@@ -225,20 +275,28 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(Member member) {
-        List<Member> members = memberService.selectList(new EntityWrapper<Member>().eq("phone", member.getPhone()).or().eq("id_card", member.getIdCard()));
-        if(members!=null && members.size()>1 && members.get(0).getId()!=member.getId()){
-            return new ErrorTip(400,"电话号码或身份证号已注册");
+        String phone = member.getPhone();
+        List<Member> members = memberService.getPhone(phone);
+        if(members!=null){
+            if(members.get(0).getId().intValue() != member.getId().intValue()){
+                return new ErrorTip(400,"电话号码已注册");
+            }
         }
-
         if(member.getId()==member.getIntroducer()){
             return new ErrorTip(400,"不能自我推荐哦");
         }
+        History history = new History();
+        BeanUtils.copyProperties(member,history);
+        history.setUid(member.getId());
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
         Integer departmentId = shiroUser.getDeptId();
+        Integer id = shiroUser.getId();
+        history.setCreatedBy(id);
         Dept dept = deptMapper.selectById(departmentId);
-        if(dept.getIsStore()!=null && dept.getIsStore()==1) {
-            member.setClinic(null); // 分店不可修改所属门店
+        if(dept != null && dept.getIsStore()!=null && dept.getIsStore()==1) {
+            member.setClinic(null);
         }
+        historyService.insert(history);
         memberService.updateById(member);
         return super.SUCCESS_TIP;
     }
@@ -251,4 +309,6 @@ public class MemberController extends BaseController {
     public Object detail(@PathVariable("memberId") Integer memberId) {
         return memberService.selectById(memberId);
     }
+
+
 }

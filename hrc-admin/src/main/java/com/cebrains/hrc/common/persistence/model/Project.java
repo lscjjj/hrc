@@ -76,6 +76,12 @@ public class Project extends Model<Project> {
      * 疗效方案
      */
     private String solution;
+
+    /**
+     * 父级分类
+     */
+    private Integer sup;
+
     /**
      * 创建时间
      */
@@ -93,6 +99,13 @@ public class Project extends Model<Project> {
     @TableField(exist = false)
     private String projectCategory;
 
+    public Integer getSup() {
+        return sup;
+    }
+
+    public void setSup(Integer sup) {
+        this.sup = sup;
+    }
 
     public Integer getId() {
         return id;
@@ -206,19 +219,21 @@ public class Project extends Model<Project> {
     @Override
     public String toString() {
         return "Project{" +
-        "id=" + id +
-        ", name=" + name +
-        ", category=" + category +
-        ", treatmentCourse=" + treatmentCourse +
-        ", priceTreatment1=" + priceTreatment1 +
-        ", priceTreatment2=" + priceTreatment2 +
-        ", priceTreatment3=" + priceTreatment3 +
-        ", priceOnce1=" + priceOnce1 +
-        ", priceOnce2=" + priceOnce2 +
-        ", priceOnce3=" + priceOnce3 +
-        ", createTime=" + createTime +
-        ", flag=" + flag +
-        "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", treatmentCourse=" + treatmentCourse +
+                ", priceTreatment1=" + priceTreatment1 +
+                ", priceTreatment2=" + priceTreatment2 +
+                ", priceTreatment3=" + priceTreatment3 +
+                ", priceOnce1=" + priceOnce1 +
+                ", priceOnce2=" + priceOnce2 +
+                ", priceOnce3=" + priceOnce3 +
+                ", solution='" + solution + '\'' +
+                ", sup=" + sup +
+                ", createTime=" + createTime +
+                ", flag=" + flag +
+                '}';
     }
 
     public String getProjectCategory() {

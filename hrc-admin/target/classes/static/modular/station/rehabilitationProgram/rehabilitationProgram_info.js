@@ -211,7 +211,7 @@ $(function () {
     var patt = $("#patt").val();
     if (patt && patt.length > 0) {
         $.each(patt.split(','), function (idx, dt) {
-            var $att = $('<div class="att-pane"><a class="att-link" target="_blank" href="' + dt + '">查看文档</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="att-del">删除</a> </div>')
+            var $att = $('<div class="att-pane"><a class="att-link" target="_blank" href="' + dt + '">查看文档</a>&nbsp;&nbsp;<a class="att-del">删除</a> </div>')
             $("#docPreId").append($att);
 
         })
@@ -249,6 +249,10 @@ $(function () {
             }
         })
     }
+
+    $(".att-del").on('click', function () {
+        $(this).parent().remove();
+    });
 
     $("input#memberValue").on("onSetSelectValue", function (event, result) {
         $('#member').val(result['id']);

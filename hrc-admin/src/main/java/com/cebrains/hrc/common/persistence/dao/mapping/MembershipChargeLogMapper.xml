@@ -4,21 +4,34 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cebrains.hrc.common.persistence.model.MembershipChargeLog">
-        <id column="id" property="id" />
-        <result column="card" property="card" />
-        <result column="amount" property="amount" />
-        <result column="department" property="department" />
-        <result column="created" property="created" />
-        <result column="create_time" property="createTime" />
-        <result column="flag" property="flag" />
-        <result column="remaining_amount" property="remainingAmount" />
-        <result column="given_amount" property="givenAmount" />
-        <result column="memo" property="memo" />
+        <id column="id" property="id"/>
+        <result column="card" property="card"/>
+        <result column="amount" property="amount"/>
+        <result column="department" property="department"/>
+        <result column="created" property="created"/>
+        <result column="create_time" property="createTime"/>
+        <result column="flag" property="flag"/>
+        <result column="remaining_amount" property="remainingAmount"/>
+        <result column="given_amount" property="givenAmount"/>
+        <result column="delete_log" property="deleteLog"/>
+        <result column="memo" property="memo"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, card, amount, department, created, create_time AS createTime, given_amount AS givenAmount, memo, flag, remaining_amount AS remainingAmount
+        id, card, amount, department, created, create_time AS createTime, given_amount AS givenAmount,delete_log AS deleteLog, memo, flag, remaining_amount AS remainingAmount
     </sql>
 
+    <select id="selectLogList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+SELECT mcl.*,mcl.create_time as createTime,mcl.given_amount as givenAmount,mcl.remaining_amount as remainingAmount,mcl.amount as amount
+FROM membership_charge_log mcl
+inner join membership_card mc on mcl.card=mc.id
+inner join member m
+on m.id = mc.user
+WHERE mcl.delete_log = 1 order by mcl.create_time desc
+    </select>
+
+    <update id="deleteLog">
+        update membership_charge_log as mcl set mcl.delete_log = 2 where mcl.id = #{id}
+    </update>
 </mapper>

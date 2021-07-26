@@ -1,47 +1,210 @@
 @layout("/common/_container.html"){
 <script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+<style>
+    #condition {
+        width: 450px;
+        height: 45px;
+        border-radius: 10px 0px 0px 10px;
+        border-color: #28B7BB;
+        padding-left: 20px;
+    }
+
+    .button {
+        border-radius: 0 10px 10px 0;
+        height: 45px;
+        width: 120px;
+        z-index: 9;
+        font-size: 20px;
+        margin-bottom: 0px !important;
+    }
+
+    .search {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+    .search > img,
+    #close> img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .ulWidth {
+        min-width: 500px !important;
+        left: 0 !important;
+        top: 50px !important;
+        margin-left: 0 !important;
+    }
+
+    .fixed-table-toolbar {
+        display: none !important;
+    }
+
+    #table{
+        position: absolute;
+        top: 60%;
+        display: none;
+        width: 100%;
+    }
+
+    .top{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .fixed-table-container{
+        height: auto !important;
+        border: none !important;
+    }
+    .fixed-table-header{
+        border: 1px solid #ddd !important;
+        border-bottom: none !important;
+    }
+    .fixed-table-body{
+        border: 1px solid #ddd !important;
+        border-top: none !important;
+        border-bottom: none !important;
+    }
+    .fixed-table-loading{
+        top: 0 !important;
+    }
+    .tc{
+        position: absolute;
+        width: 400px;
+        height: 300px;
+        line-height: 300px;
+        text-align: center;
+        left: 35%;
+        top: 25%;
+        z-index: 99;
+        display: none;
+        color: #3d3d3d;
+        background: #fff;
+        border: 1px solid #E6E8EA;
+    }
+    .topClose{
+        width: 100%;
+        height: 40px;
+        background: #f8f8f8;
+        border-bottom: 1px solid #E6E8EA;
+    }
+
+    .topClose>div:nth-child(1){
+        line-height: 40px;
+        position: absolute;
+        left: 25px;
+        font-size: 13px;
+        top: 0px;
+        color: #3d3d3d;
+    }
+
+    .title{
+        font-size: 18px;
+        line-height: 220px;
+    }
+
+    #close{
+        width: 25px;
+        line-height: 40px;
+        position: absolute;
+        top: 0px;
+        right: 15px;
+        cursor: pointer;
+    }
+
+    #cancle{
+        position: absolute;
+        bottom: 30px;
+        width: 70px;
+        height: 35px;
+        right: 5%;
+        background: #ED5666;
+        line-height: 35px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    #addFast{
+        position: absolute;
+        bottom: 30px;
+        width: 95px;
+        height: 35px;
+        left: 50%;
+        background: #28b7bc;
+        line-height: 35px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .buttonBody{
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
 <div class="row">
     <div class="col-sm-12">
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins" style="background: #fff;position: relative;">
             <div class="ibox-title">
-                <h5>会员管理</h5>
+                <h5>会员全息管理</h5>
             </div>
             <div class="ibox-content">
-                <div class="row row-lg">
-                    <div class="col-sm-12">
+                <button type="button" class="btn btn-primary" onclick="Member.openAddMember()">
+                    <i class="fa fa-plus"></i>&nbsp;添加
+                </button>
+                <button type="button" class="btn btn-primary" onclick="Member.openHealthRecordList()">
+                    <i class="fa fa-plus"></i>&nbsp;调理方案
+                </button>
+                <button type="button" class="btn btn-primary" onclick="Member.openTreatmentList()">
+                    <i class="fa fa-plus"></i>&nbsp;康复项目
+                </button>
+                <button type="button" class="btn btn-primary" onclick="Member.openMemberShipChargeLogList()">
+                    <i class="fa fa-plus"></i>&nbsp;会员充值
+                </button>
+                <button type="button" class="btn btn-primary" onclick="Member.openMemberSettlementList()">
+                    <i class="fa fa-plus"></i>&nbsp;结算
+                </button>
+                <div class="row row-lg" style="width: 100%;height: 710px;">
+                    <div class="col-sm-12" style="height: 100%;">
 
-                        <div class="row">
-                            <!--           添加的搜索栏                 -->
-                            <div class="col-sm-3">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="condition" placeholder="输入姓名\手机号\身份证..">
-                                    <div class="input-group-btn">
-                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">姓名
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        <div class="row" style="height: 100%;">
+                            <div style="height: 100%;margin-top: 10%;">
+                                <div class="search"><img src="../../../static/img/search.png" alt=""></div>
+                                <div class="top">
+                                    <div class="input-group"
+                                         style="display: flex;justify-content: center;position: relative !important;">
+                                        <input type="text" class="form-control" id="condition"
+                                               placeholder="输入姓名\手机号\身份证.." onclick="a()">
+                                        <div class="input-group-btn" style="position: absolute !important;font-size: 0;white-space: nowrap;left: 0;">
+                                            <ul class="dropdown-menu dropdown-menu-right ulWidth" role="menu"
+                                                style="padding-top: 0px; max-height: 100px; max-width: 800px; overflow: auto; width: auto; transition: all 0.3s ease 0s;height: 300px"></ul>
+                                        </div>
+
+                                        <!-- /btn-group -->
                                     </div>
-                                    <!-- /btn-group -->
+                                    <button type="button" class="btn btn-primary button" onclick="Member.search()"
+                                            id="" style="outline: none;">
+                                        搜索
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <#button name="搜索" icon="fa-search" clickFun="Member.search()"/>
-                            </div>
-                            <div id="earchnumber" style="    position: relative;float: right;bottom: -21px;right: 195px;color: red;">优先搜索建档人员</div>
-                            <!--                            -->
-                            <!--                            <div class="col-sm-3">-->
-                            <!--                                <#NameCon id="condition" name="名称" />-->
-                            <!--                            </div>-->
-                            <!--                            <div class="col-sm-3">-->
-                            <!--                                <#button name="搜索" icon="fa-search" clickFun="Member.search()"/>-->
-                            <!--                            </div>-->
                         </div>
-                        <div class="hidden-xs" id="MemberTableToolbar" role="group">
-                            @if(shiro.hasPermission("/member/add")){
-                            <#button name="添加" icon="fa-plus" clickFun="Member.openAddMember()"/>
-                            @}
+                        <div id="table">
+                            <#table id="MemberTable"/>
                         </div>
-                        <#table id="MemberTable"/>
                     </div>
+                </div>
+            </div>
+            <div class="tc">
+                <div class="topClose">
+                    <div>提示</div>
+                    <div id="close" onclick="cancle()"><img src="../../../static/img/close.png" alt=""></div>
+                </div>
+                <div class="title">系统暂时查无此人哦，请前去添加！</div>
+                <div class="buttonBody">
+                    <button id="addFast" onclick="Member.openAddMember()"><i class="fa fa-check"></i>&nbsp;立即添加</button>
+                    <button id="cancle" onclick="cancle()"><i class="fa fa-eraser"></i>&nbsp;取消</button>
                 </div>
             </div>
         </div>

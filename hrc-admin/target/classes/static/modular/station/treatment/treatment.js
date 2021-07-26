@@ -14,12 +14,12 @@ var Treatment = {
 Treatment.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '康护用户', field: 'userName', visible: true, align: 'center', valign: 'middle'},
-            {title: '康护门店', field: 'departmentName', visible: true, align: 'center', valign: 'middle'},
-            {title: '康护技师', field: 'technicianName', visible: true, align: 'center', valign: 'middle'},
-            {title: '状态', field: 'statusName', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'}
+        {title: '', field: 'id', visible: false, align: 'center', valign: 'middle'},
+        {title: '康护用户', field: 'userName', visible: true, align: 'center', valign: 'middle'},
+        {title: '康护门店', field: 'departmentName', visible: true, align: 'center', valign: 'middle'},
+        {title: '康护技师', field: 'technicianName', visible: true, align: 'center', valign: 'middle'},
+        {title: '状态', field: 'statusName', visible: true, align: 'center', valign: 'middle'},
+        {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -28,19 +28,22 @@ Treatment.initColumn = function () {
  */
 Treatment.check = function () {
     var selected = $('#' + this.id).bootstrapTable('getSelections');
-    if(selected.length == 0){
+    if (selected.length == 0) {
         Feng.info("请先选中表格中的某一记录！");
         return false;
-    }else{
+    } else {
         Treatment.seItem = selected[0];
         return true;
     }
 };
-
 /**
  * 点击添加康护记录
  */
 Treatment.openAddTreatment = function () {
+    if (localStorage.getItem("uname") == "admin") {
+        Feng.error("请选择门店再进行康复管理添加!");
+        return;
+    }
     var index = layer.open({
         type: 2,
         title: '添加康护记录',
@@ -80,7 +83,7 @@ Treatment.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("treatmentId",this.seItem.id);
+        ajax.set("treatmentId", this.seItem.id);
         ajax.start();
     }
 };
@@ -115,7 +118,7 @@ $(function () {
     var defaultColunms = Treatment.initColumn();
     var url = "/treatment/list";
     var ttp = $("#ttp").val();
-    if(ttp=='2'){
+    if (ttp == '2') {
         url += "Record";
     }
     var table = new BSTable(Treatment.id, url, defaultColunms);

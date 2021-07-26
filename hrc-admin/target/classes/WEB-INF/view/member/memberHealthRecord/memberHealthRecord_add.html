@@ -1,14 +1,116 @@
 @layout("/common/_container.html"){
 <script src="${ctxPath}/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
 <style>
-    .control-label{
+    .control-label {
         text-align: left !important;
     }
-    .form-group{
+
+    .form-group {
         margin-left: 0 !important;
     }
-    #faceImgAttachmentBtnId,#tongueImgAttachmentBtnId,#partImgAttachmentBtnId{
+
+    #faceImgAttachmentBtnId, #tongueImgAttachmentBtnId, #partImgAttachmentBtnId {
         top: 2px !important;
+    }
+
+    .bg,.first,.second{
+        background: #18a689;
+        color: #fff;
+    }
+
+    .tanc{
+        width: 800px;
+        display: none;
+        position: absolute;
+        top: 10%;
+        left: 15%;
+        background-color: #fff;
+        -webkit-background-clip: content;
+        border-radius: 2px;
+        box-shadow: 1px 1px 50px rgb(0 0 0 / 30%);
+        z-index: 99;
+    }
+
+    .top{
+        display: flex;
+        background: #f8f8f8;
+        height: 42px;
+        line-height: 42px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .top>div:nth-child(1){
+        margin-left: 15px;
+    }
+
+    .top>div:nth-child(2){
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    .bz{
+        margin: 25px 0 25px 40px;
+        display: flex;
+        overflow: auto;
+        height: 420px;
+    }
+
+    .gd{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        margin: 0 10px 0 25px;
+    }
+    .gd>div{
+        margin-bottom: 20px;
+        font-size: 17px;
+        border: 1px solid #e7eaec;
+        width: 120px;
+        text-align: center;
+        border-radius: 10px;
+        height: 45px;
+        line-height: 45px;
+        cursor: pointer;
+    }
+    .ej,.tj{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        margin: 0 10px 0 15px;
+    }
+
+    .ej>div,.tj>div{
+        margin-bottom: 20px;
+        font-size: 17px;
+        border: 1px solid #e7eaec;
+        width: 165px;
+        text-align: center;
+        border-radius: 10px;
+        height: 45px;
+        line-height: 45px;
+        cursor: pointer;
+    }
+
+    .sj{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        margin-left: 25px;
+    }
+
+    .name>div{
+        margin-bottom: 20px;
+        width: 180px;
+    }
+
+    .name>div>div:nth-child(1){
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .name>div>div:nth-child(2){
+        margin-bottom: 20px;
+        font-size: 13px;
     }
 </style>
 <div class="ibox float-e-margins">
@@ -52,12 +154,13 @@
                         <#multiAtt id="doc" name="西医体检报告" />
                     </div>
                 </div>
-                <hr >
+                <hr>
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">中医体检报告</label>
-                            <#button btnCss="info" name="选择" id="ensure" icon="fa-check" clickFun="" clickFun="TcmHealthSurveyOption.openAddTcmHealthSurveyOption()" space="true"/>
+                            <#button btnCss="info" name="选择" id="ensure" icon="fa-check" clickFun=""
+                            clickFun="TcmHealthSurveyOption.openAddTcmHealthSurveyOption()" space="true"/>
 
                             <br/><br/>
                             <div class="col-sm-12">
@@ -69,8 +172,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">人体自检报告</label><#button btnCss="info" name="选择" id="ensure"
-                            icon="fa-check" clickFun="MemberHealthSurvey.openMemberHealthSurveyUpdate()" space="true"/><br/><br/>
+                            <label class="col-sm-3 control-label">人体自检报告</label><#button btnCss="info" name="选择"
+                            id="ensure"
+                            icon="fa-check" clickFun="MemberHealthSurvey.openMemberHealthSurveyUpdate()"
+                            space="true"/><br/><br/>
                             <div class="col-sm-12">
                             <textarea id="surveyInfo" readonly="readonly" rows="4" cols="20" class="form-control"
                                       style="background: #F8F8F8;color:#666666;margin-bottom: 18px;height: 58px;"></textarea>
@@ -83,7 +188,8 @@
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" style="   margin-bottom: 13px;">康复项目报告</label><br/><br/>
+                            <label class="col-sm-3 control-label"
+                                   style="   margin-bottom: 13px;">康复项目报告</label><br/><br/>
                             <div class="col-sm-12">
                             <textarea id="evaluaInfo" rows="4" cols="20" class="form-control"
                                       style="color:#666666;height: 58px;"></textarea>
@@ -92,9 +198,11 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">康复调理方案</label>&nbsp;&nbsp;&nbsp;<#button btnCss="info"
-                            name="选择" id="ensure" icon="fa-check"
-                            clickFun="MemberHealthRecordInfoDlg.selectSolution()"/>
+                            <label class="col-sm-3 control-label">康复调理方案</label>&nbsp;&nbsp;&nbsp;
+<!--                            <button type="button" class="btn btn-info" onclick="MemberHealthRecordInfoDlg.selectSolution()" id="ensure">-->
+                            <button type="button" class="btn btn-info" onclick="MemberHealthRecordInfoDlg.disease()" id="ensure">
+                            <i class="fa fa-check"></i>&nbsp;选择
+                        </button>
                             <div class="col-sm-12">
                             <textarea id="evaluation" readonly="readonly" rows="4" cols="20" class="form-control"
                                       style="background: #F8F8F8;color:#666666;height: 58px;"></textarea>
@@ -105,7 +213,8 @@
                 <hr>
                 <div class="col-sm-12">
                     <div class="col-sm-6">
-                        <div class="col-sm-2" style="height: 81px;display: flex;justify-content: center;align-items: center;">
+                        <div class="col-sm-2"
+                             style="height: 81px;display: flex;justify-content: center;align-items: center;">
                             <span>图片上传</span>
                         </div>
                         <div class="col-sm-3">
@@ -119,20 +228,22 @@
                         </div>
                     </div>
                 </div>
-                <hr >
+                <hr>
                 <div class="col-sm-12" style="margin-bottom: 26px !important;margin-top: 12px;">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">建档门店</label>
                             <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="departmentValue" value="${departmentName}"
+                                <div class="input-group" style="z-index: 9">
+                                    <input type="text" class="form-control" id="departmentValue"
+                                           value="${departmentName}"
                                            @if(tool.isNotEmpty(departmentId)){
                                            readonly disabled>
                                     @}else{
                                     >
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-white dropdown-toggle"
+                                                data-toggle="dropdown">
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
@@ -170,25 +281,39 @@
                     </div>
                 </div>
                 <hr>
-                    <a href="http://ttjk.hanyigongshe.com/static/modular/member/memberHealthRecord/汉医公社健康调理知情同意书.doc" style="margin-left: 41px;">
-                        <input type="checkbox" name="maincheck" value="maincheckval" checked="checked"/> 《汉医公社健康调理知情同意书》
-                    </a>
-                    <!--<#singleAtt id="doc" name="健康报告" />-->
-                </div>
-
+                <a href="http://ttjk.hanyigongshe.com/static/modular/member/memberHealthRecord/汉医公社健康调理知情同意书.doc"
+                   style="margin-left: 41px;">
+                    <input type="checkbox" name="maincheck" value="maincheckval" checked="checked"/> 《汉医公社健康调理知情同意书》
+                </a>
+                <!--<#singleAtt id="doc" name="健康报告" />-->
             </div>
 
-            <div class="row btn-group-m-t">
-                <div class="col-sm-10">
-                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check"
-                    clickFun="MemberHealthRecordInfoDlg.addSubmit()"/>
-                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
-                    clickFun="MemberHealthRecordInfoDlg.close()"/>
-                </div>
-            </div>
         </div>
 
+        <div class="row btn-group-m-t">
+            <div class="col-sm-10">
+                <#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+                clickFun="MemberHealthRecordInfoDlg.addSubmit()"/>
+                <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+                clickFun="MemberHealthRecordInfoDlg.close()"/>
+            </div>
+        </div>
     </div>
+    <div class="tanc">
+        <div class="top">
+            <div>选择健康方案</div>
+            <div onclick="MemberHealthRecordInfoDlg.closeDisease()">X</div>
+        </div>
+        <div class="bz">
+            <div class="gd"></div>
+            <div class="ej"></div>
+            <div class="tj"></div>
+            <div class="sj">
+                <div class="name"></div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 <script src="${ctxPath}/static/modular/member/memberHealthRecord/memberHealthRecord_info.js"></script>
 <script src="${ctxPath}/static/modular/member/memberHealthSurvey/memberHealthSurvey.js"></script>

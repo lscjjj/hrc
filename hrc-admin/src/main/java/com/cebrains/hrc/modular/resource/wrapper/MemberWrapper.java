@@ -1,6 +1,7 @@
 package com.cebrains.hrc.modular.resource.wrapper;
 
 import com.cebrains.hrc.common.constant.factory.ConstantFactory;
+import com.cebrains.hrc.common.persistence.model.History;
 import com.cebrains.hrc.common.persistence.model.Member;
 import com.cebrains.hrc.core.base.warpper.BaseCustomWarpper;
 

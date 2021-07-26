@@ -17,7 +17,7 @@ public class HRCFlowableProperties {
     public static final String HRC_FLOWABLE_DATASOURCE = "hrc.flowable.datasource";
 
     //默认多数据源的链接
-    private String url = "jdbc:mysql://mysql_serv:3306/hrc_flowable?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+    private String url = "jdbc:mysql://39.104.81.209:3306/hrc_flowable?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
 
     //默认多数据源的数据库账号
     private String username = "hrcu";

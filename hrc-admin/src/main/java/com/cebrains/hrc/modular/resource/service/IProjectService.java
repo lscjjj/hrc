@@ -16,4 +16,16 @@ import java.util.List;
 public interface IProjectService extends IService<Project> {
 
     List<Project> projectInformationByTreatment(Integer treatment);
+
+    List<Project> selectPrice(Integer id);
+
+    List<Project> selectOne();
+
+    List<Project> selectTwo();
+
+    List<Project> selectThree();
+
+    List<Project> selectFour();
+
+    List<Project> selectFive();
 }

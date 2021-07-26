@@ -20,4 +20,5 @@ import java.util.List;
 public interface ConsumableMapper extends BaseMapper<Consumable> {
 
     List<Consumable> selectByDeptId(Integer deptid);
+
 }

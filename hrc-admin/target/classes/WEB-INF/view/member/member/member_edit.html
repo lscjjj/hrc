@@ -16,21 +16,41 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="realName" name="真实姓名" value="${item.realName}" underline="true"/>
+<!--                            <#input id="realName" name="真实姓名" value="${item.realName}" underline="true"/>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red;margin-right: 5px;">*</span>真实姓名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="realName" name="realName" type="text" value="${item.realName}" placeholder="必填">
+                                </div>
+                            </div>
                             <#select id="gender" name="性别" underline="true">
                             @for(dict in genderDict){
                             <option value="${dict.num}">${dict.name}</option>
                             @}
                             </#select>
                             <#input id="idCard" name="身份证号" value="${item.idCard}" underline="true"/>
-                            <#input id="phone" name="手机号码" value="${item.phone}" underline="true"/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red;margin-right: 5px;">*</span>手机号码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="phone" name="phone" type="text" value="${item.phone}" placeholder="必填">
+
+                                </div>
+                            </div>
+<!--                            <#input id="phone" name="手机号码" value="${item.phone}" underline="true"/>-->
                             <#avatar id="avatar" name="头像" underline="true" avatarImg="${item.avatar}"/>
                             <#input id="wechat" name="微信" value="${item.wechat}" underline="true"/>
                             <#avatar id="wechatQRCode" name="微信二维码" avatarImg="${item.wechatQRCode}" underline="true"/>
                             <#input id="nickname" name="昵称" value="${item.nickname}" underline="true"/>
                             <#input id="birthday" name="生日" value="${item.birthday}" underline="true"
                             clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})" />
-                            <#input id="age" name="年龄" value="${item.age}" underline="true"/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red;margin-right: 5px;">*</span>年龄</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="age" name="age" type="text" value="${item.age}" placeholder="必填">
+
+                                </div>
+                            </div>
+<!--                            <#input id="age" name="年龄" value="${item.age}" underline="true"/>-->
                             <#input id="height" name="身高(cm)" value="${item.height}" underline="true"/>
                             <#input id="weight" name="体重(kg)" value="${item.weight}" underline="true"/>
                             <#select id="bloodType" name="血型" underline="true">
@@ -41,7 +61,18 @@
                             <#input id="chestCircumference" name="胸围(cm)" value="${item.chestCircumference}" underline="true"/>
                             <#input id="waistCircumference" name="腰围(cm)" value="${item.waistCircumference}" underline="true"/>
                             <#input id="hipCircumference" name="臀围(cm)" value="${item.hipCircumference}" underline="true"/>
-                            <#input id="occupation" name="职业" value="${item.occupation}" underline="true"/>
+<!--                            <#input id="occupation" name="职业" value="${item.occupation}" underline="true"/>-->
+                            <#select id="occupation" name="职业" underline="true">
+                            <option value="${item.occupation}">${item.occupation}</option>
+                            <option value="国家机关工作人员">国家机关工作人员</option>
+                            <option value="军人">军人</option>
+                            <option value="老师">老师</option>
+                            <option value="学生">学生</option>
+                            <option value="金融科技人员">金融科技人员</option>
+                            <option value="国有央企工作人员">国有央企工作人员</option>
+                            <option value="私企工作人员">私企工作人员</option>
+                            <option value="其他">其他</option>
+                            </#select>
                             <#input id="email" name="邮箱" value="${item.email}" underline="true"/>
                             <#input id="address" name="住址" value="${item.address}" underline="true"/>
                             <#input id="mailingAddress" name="通讯地址" value="${item.mailingAddress}" underline="true"/>

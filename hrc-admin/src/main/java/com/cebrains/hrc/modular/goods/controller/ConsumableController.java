@@ -73,16 +73,16 @@ public class ConsumableController extends BaseController {
     public String consumableUpdate(@PathVariable Integer consumableId, Model model) {
         Consumable consumable = consumableService.selectById(consumableId);
         consumable.setDepartmentName(ConstantFactory.me().getDeptName(consumable.getDepartment()));
-        model.addAttribute("item",consumable);
-        if(ShiroKit.lacksPermission(IConstantFactory.PERMISSION_CONSUMABLE_EDIT_OTHER_DEPT)){
+        model.addAttribute("item", consumable);
+        if (ShiroKit.lacksPermission(IConstantFactory.PERMISSION_CONSUMABLE_EDIT_OTHER_DEPT)) {
             ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
             Integer departmentId = shiroUser.getDeptId();
             String departmentName = shiroUser.getDeptName();
-            model.addAttribute("departmentId",departmentId);
-            model.addAttribute("departmentName",departmentName);
-        }else{
-            model.addAttribute("departmentId",null);
-            model.addAttribute("departmentName",null);
+            model.addAttribute("departmentId", departmentId);
+            model.addAttribute("departmentName", departmentName);
+        } else {
+            model.addAttribute("departmentId", null);
+            model.addAttribute("departmentName", null);
         }
         LogObjectHolder.me().set(consumable);
         return PREFIX + "consumable_edit.html";
@@ -95,7 +95,7 @@ public class ConsumableController extends BaseController {
     public String consumableTransfer(@PathVariable Integer consumableId, Model model) {
         Consumable consumable = consumableService.selectById(consumableId);
         consumable.setDepartmentName(ConstantFactory.me().getDeptName(consumable.getDepartment()));
-        model.addAttribute("item",consumable);
+        model.addAttribute("item", consumable);
         Integer srcDepartment = consumable.getDepartment();
         model.addAttribute("srcDepartmentId", srcDepartment);
         model.addAttribute("srcDepartmentName", ConstantFactory.me().getDeptName(srcDepartment));
@@ -110,7 +110,7 @@ public class ConsumableController extends BaseController {
     public String consumableCheck(@PathVariable Integer consumableId, Model model) {
         Consumable consumable = consumableService.selectById(consumableId);
         consumable.setDepartmentName(ConstantFactory.me().getDeptName(consumable.getDepartment()));
-        model.addAttribute("item",consumable);
+        model.addAttribute("item", consumable);
         LogObjectHolder.me().set(consumable);
         return PREFIX + "consumable_check.html";
     }
@@ -123,37 +123,34 @@ public class ConsumableController extends BaseController {
     public Object list(String condition) {
         Integer deptid = null;
 //        if(ShiroKit.lacksPermission(IConstantFactory.PERMISSION_CONSUMABLE_LIST_OTHER_DEPT)){
-            ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
-            Integer id = shiroUser.getId();
-            if(id == 1){
-                shiroUser.setDeptId(0);
-                deptid = 0;
-            }else{
-                deptid = shiroUser.getDeptId();
-            }
+        ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
+        Integer id = shiroUser.getId();
+        if (id == 1) {
+            shiroUser.setDeptId(0);
+            deptid = 0;
+        } else {
+            deptid = shiroUser.getDeptId();
+        }
 //        }
         List<Consumable> consumables = consumableService.selectByDeptId(deptid);
         return new ConsumableWrapper(consumables).wrap();
     }
-
-
 
     /**
      * 获取耗材建议列表
      */
     @RequestMapping(value = "/suggestList/{d}/{k}")
     @ResponseBody
-    public Object suggestList(@PathVariable Integer d,@PathVariable String k) {
+    public Object suggestList(@PathVariable Integer d, @PathVariable String k) {
         List<ConsumableSuggestVo> result = new ArrayList<>();
         Wrapper<Consumable> wrapper = new EntityWrapper<>();
-        wrapper = wrapper.eq("department",d).like("name", "%"+k+"%");
+        wrapper = wrapper.eq("department", d).like("name", "%" + k + "%");
         List<Consumable> consumables = consumableService.selectList(wrapper);
-        if(consumables!=null){
-            consumables.forEach(m -> result.add(new ConsumableSuggestVo(m.getId(),m.getName(),m.getAmount())));
+        if (consumables != null) {
+            consumables.forEach(m -> result.add(new ConsumableSuggestVo(m.getId(), m.getName(), m.getNumber(), m.getSpecification(), m.getPrice(), m.getMeasureUnit(), m.getAmount())));
         }
         return result;
     }
-
 
 
     /**
@@ -163,7 +160,7 @@ public class ConsumableController extends BaseController {
     @ResponseBody
     public Object suggestList(@RequestParam("c") Integer c) {
         Consumable consumable = consumableService.selectById(c);
-        return new ConsumableSuggestVo(consumable.getId(),consumable.getName(),consumable.getAmount());
+        return new ConsumableSuggestVo(consumable.getId(), consumable.getName(), consumable.getNumber(), consumable.getSpecification(), consumable.getPrice(), consumable.getMeasureUnit(), consumable.getAmount());
     }
 
     /**
@@ -201,24 +198,24 @@ public class ConsumableController extends BaseController {
      */
     @RequestMapping(value = "/transfer")
     @ResponseBody
-    public Object transfer(Integer srcDepartment, Integer destDepartment,Integer amount,Integer id) {
-        if(srcDepartment.equals(destDepartment)){
-            return new ErrorTip(400,"提供门店与接收门店不能相同");
+    public Object transfer(Integer srcDepartment, Integer destDepartment, Integer amount, Integer id) {
+        if (srcDepartment.equals(destDepartment)) {
+            return new ErrorTip(400, "提供门店与接收门店不能相同");
         }
         Consumable sc = consumableService.selectById(id);
-        if(sc.getAmount()<amount) {
+        if (sc.getAmount() < amount) {
             return new ErrorTip(400, "库存不足");
         }
 
-        List<ConsumableTransferLog> ctls = consumableTransferLogService.selectList(new EntityWrapper<ConsumableTransferLog>().eq("src_department",sc.getDepartment()).and().eq("src_id",sc.getId()).and().eq("dest_department",destDepartment));
+        List<ConsumableTransferLog> ctls = consumableTransferLogService.selectList(new EntityWrapper<ConsumableTransferLog>().eq("src_department", sc.getDepartment()).and().eq("src_id", sc.getId()).and().eq("dest_department", destDepartment));
 //        List<Consumable> dcs = consumableService.selectList(new EntityWrapper<Consumable>().eq("department",destDepartment).and().eq("name",sc.getName()));
         Consumable dc = null;
-        if(ctls!=null && ctls.size()>0){
+        if (ctls != null && ctls.size() > 0) {
             ConsumableTransferLog ctl = ctls.get(0);
             dc = consumableService.selectById(ctl.getDestId());
-            dc.setAmount(dc.getAmount()+amount);
+            dc.setAmount(dc.getAmount() + amount);
             consumableService.updateById(dc);
-        }else{
+        } else {
             dc = new Consumable();
             dc.setName(sc.getName());
             dc.setAmount(amount);
@@ -231,7 +228,7 @@ public class ConsumableController extends BaseController {
             consumableService.insert(dc);
         }
 
-        sc.setAmount(sc.getAmount()-amount);
+        sc.setAmount(sc.getAmount() - amount);
         consumableService.updateById(sc);
         ConsumableTransferLog nctl = new ConsumableTransferLog();
         ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
@@ -258,23 +255,24 @@ public class ConsumableController extends BaseController {
 
     /**
      * 对是否有权限为其他门店设备进行修改
+     *
      * @param model
      */
     private void fillIfCanMaintainForOtherDept(Model model) {
-        if(ShiroKit.lacksPermission(IConstantFactory.PERMISSION_CONSUMABLE_EDIT_OTHER_DEPT)){
+        if (ShiroKit.lacksPermission(IConstantFactory.PERMISSION_CONSUMABLE_EDIT_OTHER_DEPT)) {
             ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
             Integer departmentId = shiroUser.getDeptId();
             String departmentName = shiroUser.getDeptName();
-            model.addAttribute("departmentId",departmentId);
-            model.addAttribute("departmentName",departmentName);
+            model.addAttribute("departmentId", departmentId);
+            model.addAttribute("departmentName", departmentName);
             Wrapper<User> userWrapper = new EntityWrapper<>();
             userWrapper = userWrapper.eq("deptid", departmentId);
             List<User> users = userMapper.selectList(userWrapper);
-            model.addAttribute("users",users);
-        }else{
-            model.addAttribute("departmentId",null);
-            model.addAttribute("departmentName",null);
-            model.addAttribute("users",new ArrayList<User>());
+            model.addAttribute("users", users);
+        } else {
+            model.addAttribute("departmentId", null);
+            model.addAttribute("departmentName", null);
+            model.addAttribute("users", new ArrayList<User>());
         }
     }
 }

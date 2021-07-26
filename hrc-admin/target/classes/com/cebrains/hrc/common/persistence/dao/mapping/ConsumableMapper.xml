@@ -24,4 +24,5 @@
     <select id="selectByDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select * from consumable as a where (#{deptid} = 0 || a.department = #{deptid}) order by a.create_time;
     </select>
+
 </mapper>

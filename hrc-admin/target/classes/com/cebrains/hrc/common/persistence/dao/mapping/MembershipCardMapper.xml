@@ -89,6 +89,12 @@ WHERE mc.user = (SELECT t.user_id
                  WHERE t.id = #{tid})
     </update>
 
+    <update id="deductMoneyByMemberShipCard">
+        update membership_card mc
+        SET mc.balance = mc.balance - #{amount}
+        where mc.id = #{membershipCard}
+    </update>
+
     <update id="deductMoneyByTransferCardConsumption">
         UPDATE membership_card mc
         SET mc.balance = mc.balance - #{amount}

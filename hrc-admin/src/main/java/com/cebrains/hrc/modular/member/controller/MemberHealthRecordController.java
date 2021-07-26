@@ -11,18 +11,18 @@ import com.cebrains.hrc.core.base.controller.BaseController;
 import com.cebrains.hrc.core.base.tips.ErrorTip;
 import com.cebrains.hrc.core.shiro.ShiroKit;
 import com.cebrains.hrc.core.shiro.ShiroUser;
-import com.cebrains.hrc.modular.member.service.IMemberHealthRecordAttachmentService;
-import com.cebrains.hrc.modular.member.service.IMemberService;
+import com.cebrains.hrc.modular.member.service.*;
 import com.cebrains.hrc.modular.member.service.impl.MemberHealthRecordAttachmentServiceImpl;
 import com.cebrains.hrc.modular.resource.service.IProjectService;
 import com.cebrains.hrc.modular.resource.wrapper.MemberHealthRecordWrapper;
+import com.cebrains.hrc.modular.resource.wrapper.ProjectSecondWrapper;
+import com.cebrains.hrc.modular.resource.wrapper.ProjectSupWrapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cebrains.hrc.core.log.LogObjectHolder;
-import com.cebrains.hrc.modular.member.service.IMemberHealthRecordService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,11 +52,22 @@ public class MemberHealthRecordController extends BaseController {
     @Autowired
     private IMemberService memberService;
 
+    @Autowired
+    private IProjectSupService iProjectSupService;
+
+    @Autowired
+    private IProjectSecondService iProjectSecondService;
+
     /**
      * 跳转到健康档案首页
      */
     @RequestMapping("")
     public String index() {
+        return PREFIX + "memberHealthRecord.html";
+    }
+
+    @RequestMapping("/jump")
+    public String jumpIndex() {
         return PREFIX + "memberHealthRecord.html";
     }
 
@@ -154,6 +165,91 @@ public class MemberHealthRecordController extends BaseController {
     }
 
     /**
+     * 选择健康方案
+     */
+    @PostMapping("/solutionsOne")
+    @ResponseBody
+    public List<Project> solutionsOne(){
+//        List<Dict> allProjectCategories = ConstantFactory.me().findAllProjectCategories();
+//        List<RProjectVO> rps = new ArrayList<>();
+//        for(Dict d : allProjectCategories){
+//            RProjectVO rp = new RProjectVO();
+//            rp.setId(d.getId());
+//            rp.setName(d.getName());
+//            Wrapper<Project> projectWrapper = new EntityWrapper<>();
+//            projectWrapper.eq("category",d.getNum());
+//            List<Project> projects = projectService.selectOne();
+//            rp.setRps(projects);
+//            rps.add(rp);
+//        }
+//        return rps;
+        List<Project> projects = projectService.selectOne();
+        return projects;
+    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/solutionsTwo")
+    @ResponseBody
+    public List<RProjectVO> solutionsTwo(){
+        List<Dict> allProjectCategories = ConstantFactory.me().findAllProjectCategories();
+        List<RProjectVO> rps = new ArrayList<>();
+        for(Dict d : allProjectCategories){
+            RProjectVO rp = new RProjectVO();
+            rp.setId(d.getId());
+            rp.setName(d.getName());
+            Wrapper<Project> projectWrapper = new EntityWrapper<>();
+            projectWrapper.eq("category",d.getNum());
+            List<Project> projects = projectService.selectList(projectWrapper);
+            rp.setRps(projects);
+            rps.add(rp);
+        }
+        return rps;
+    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/solutionsThree")
+    @ResponseBody
+    public List<Project> solutionsThree(){
+        List<Project> projects = projectService.selectThree();
+        return projects;
+    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/solutionsFour")
+    @ResponseBody
+    public List<Project> solutionsFour(){
+        List<Project> projects = projectService.selectTwo();
+        return projects;
+    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/solutionsFive")
+    @ResponseBody
+    public List<Project> solutionsFive(){
+        List<Project> projects = projectService.selectFour();
+        return projects;
+    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/solutionsSix")
+    @ResponseBody
+    public List<Project> solutionsSix(){
+        List<Project> projects = projectService.selectFive();
+        return projects;
+    }
+
+
+    /**
      * 获取健康档案列表
      */
     @RequestMapping(value = "/list")
@@ -177,9 +273,17 @@ public class MemberHealthRecordController extends BaseController {
     @RequestMapping(value = {"/search/{k}","/search"})
     @ResponseBody
     public Object search(@PathVariable(value = "k" , required = false) String k) {
+//        selectByClinic
+        ShiroUser shiroUser = (ShiroUser) getSession().getAttribute("shiroUser");
+
+        Integer depId = shiroUser.deptId;
         List<Map<String, Object>> result = null;
 //        List<MembershipCard> membershipCardList = null;
-        result = memberHealthRecordService.selectAll();
+        if (shiroUser.getRoleList().contains(1)){
+            result = memberService.selectAllNoBy();
+        }else{
+            result = memberService.selectByClinicHealth(depId);
+        }
         if (k != null){
             result = memberHealthRecordService.selectByName(k);
         }
@@ -280,5 +384,35 @@ public class MemberHealthRecordController extends BaseController {
             model.addAttribute("departmentName",null);
             model.addAttribute("users",new ArrayList<User>());
         }
+    }
+
+//    /**
+//     * 根据id获取用户姓名和卡号
+//     */
+//    @RequestMapping(value = "memberHealthRecord/getNameAndCardById")
+//    @ResponseBody
+//    public Object getById(Integer id){
+//        List<Member> members = memberService.selectHealthRecordById(id);
+//        return members;
+//    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/projectSup")
+    @ResponseBody
+    public Object list() {
+        List<ProjectSup> projectSups = iProjectSupService.selectList();
+        return new ProjectSupWrapper(projectSups).wrap();
+    }
+
+    /**
+     * 选择健康方案
+     */
+    @PostMapping("/projectSecond")
+    @ResponseBody
+    public Object listSecond() {
+        List<ProjectSecond> projectSeconds = iProjectSecondService.selectList();
+        return new ProjectSecondWrapper(projectSeconds).wrap();
     }
 }
